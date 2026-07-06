@@ -19,6 +19,7 @@ return new class extends Migration
             $table->decimal('temperature', 5, 2)->nullable();
             $table->decimal('rainfall', 5, 2)->nullable();
             $table->decimal('wind_speed', 5, 2)->nullable();
+            $table->integer('humidity')->nullable();
             $table->string('weather_condition')->nullable();
             $table->integer('storm_risk')->default(0);
 

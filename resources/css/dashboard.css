@@ -1,0 +1,432 @@
+.dashboard-wrapper{
+
+    display:flex;
+
+    min-height:100vh;
+
+    background:#070B18;
+
+}
+
+.sidebar{
+
+    width:260px;
+
+    background:#0D1224;
+
+    padding:30px 20px;
+
+}
+
+.logo h3{
+
+    color:white;
+
+    margin-bottom:40px;
+
+}
+
+.logo span{
+
+    color:#8B5CF6;
+
+}
+
+.sidebar ul{
+
+    list-style:none;
+
+    padding:0;
+
+}
+
+.sidebar li{
+
+    color:#B8B8B8;
+
+    padding:15px;
+
+    border-radius:12px;
+
+    margin-bottom:10px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.sidebar li i{
+
+    margin-right:12px;
+
+}
+
+.sidebar li:hover{
+
+    background:#8B5CF6;
+
+    color:white;
+
+}
+
+.active{
+
+    background:#8B5CF6;
+
+    color:white!important;
+
+}
+
+.main-content{
+
+    flex:1;
+
+    padding:25px;
+
+}
+
+.topbar{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+.search-box{
+
+    width:60%;
+
+    background:#0F172A;
+
+    border-radius:15px;
+
+    padding:14px 20px;
+
+}
+
+.search-box input{
+
+    background:none;
+
+    border:none;
+
+    color:white;
+
+    width:90%;
+
+    margin-left:10px;
+
+}
+
+.search-box input:focus{
+
+    outline:none;
+
+}
+
+.top-icons{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+    color:white;
+
+}
+
+.avatar{
+
+    width:45px;
+
+    height:45px;
+
+    background:#8B5CF6;
+
+    border-radius:50%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-weight:bold;
+
+}
+/* =====================
+      SUMMARY CARD
+======================*/
+
+.dashboard-content{
+
+    margin-top:35px;
+
+}
+
+.stat-card{
+
+    background:#10182C;
+
+    border-radius:22px;
+
+    padding:25px;
+
+    border:1px solid rgba(255,255,255,.05);
+
+    transition:.35s;
+
+    height:170px;
+
+}
+
+.stat-card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:0 20px 40px rgba(139,92,246,.15);
+
+}
+
+.stat-top{
+
+    display:flex;
+
+    justify-content:space-between;
+
+}
+
+.stat-title{
+
+    color:#8A8FA7;
+
+    font-size:14px;
+
+}
+
+.stat-card h2{
+
+    margin-top:15px;
+
+    color:white;
+
+    font-size:38px;
+
+    font-weight:700;
+
+}
+
+.stat-icon{
+
+    width:60px;
+
+    height:60px;
+
+    border-radius:18px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:#8B5CF6;
+
+    color:white;
+
+    font-size:24px;
+
+}
+
+.stat-footer{
+
+    margin-top:25px;
+
+    color:#34D399;
+
+    font-weight:500;
+
+}
+/* ==========================
+      DASHBOARD SECTION
+========================== */
+
+.dashboard-card{
+
+    background:#111827;
+
+    border-radius:20px;
+
+    padding:25px;
+
+    border:1px solid rgba(255,255,255,.05);
+
+    height:100%;
+
+}
+
+.card-header-custom{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:20px;
+
+}
+
+.card-header-custom h5{
+
+    color:white;
+
+    margin:0;
+
+    font-weight:600;
+
+}
+
+#world-map{
+
+    height:420px;
+
+    border-radius:15px;
+
+    overflow:hidden;
+
+}
+
+.map-placeholder{
+
+    width:100%;
+
+    height:100%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    color:#9CA3AF;
+
+    background:#0F172A;
+
+    border:2px dashed #374151;
+
+    border-radius:15px;
+
+}
+
+.risk-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:15px;
+
+}
+
+.risk-item{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    background:#0F172A;
+
+    padding:14px 18px;
+
+    border-radius:12px;
+
+    color:white;
+
+}
+/* ==========================
+      INFO CARD
+========================== */
+
+.info-card{
+
+    background:#111827;
+
+    border-radius:20px;
+
+    padding:22px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+    border:1px solid rgba(255,255,255,.05);
+
+    transition:.3s;
+
+}
+
+.info-card:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 15px 35px rgba(139,92,246,.15);
+
+}
+
+.info-icon{
+
+    width:60px;
+
+    height:60px;
+
+    background:#8B5CF6;
+
+    border-radius:18px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    color:white;
+
+    font-size:24px;
+
+}
+
+.info-title{
+
+    color:#9CA3AF;
+
+    font-size:14px;
+
+}
+
+.info-value{
+
+    color:white;
+
+    font-size:24px;
+
+    font-weight:700;
+
+    margin-top:5px;
+
+}
+
+.info-card small{
+
+    color:#9CA3AF;
+
+}

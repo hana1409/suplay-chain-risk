@@ -12,39 +12,72 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('countries', function (Blueprint $table) {
+
             $table->id();
 
-            // ISO Country Code (ID, CN, DE, AU)
+            // ===========================
+            // COUNTRY IDENTITY
+            // ===========================
+
+            // ISO Alpha-2 (ID, US, JP)
             $table->string('country_code', 2)->unique();
 
-            // Nama negara
+            // ISO Alpha-3 (IDN, USA, JPN)
+            $table->string('country_code3', 3)->unique();
+
+            // Common Name
             $table->string('country_name');
 
-            // Ibu kota
+            // Official Name
+            $table->string('official_name')->nullable();
+
+            // ===========================
+            // LOCATION
+            // ===========================
+
             $table->string('capital')->nullable();
 
-            // Region & Subregion
             $table->string('region')->nullable();
+
             $table->string('subregion')->nullable();
 
-            // Mata uang
-            $table->string('currency_code', 10)->nullable();
-            $table->string('currency_name')->nullable();
-
-            // Bahasa utama
-            $table->string('language')->nullable();
-
-            // Populasi
-            $table->bigInteger('population')->nullable();
-
-            // Koordinat negara
             $table->decimal('latitude', 10, 6)->nullable();
+
             $table->decimal('longitude', 10, 6)->nullable();
 
-            // URL bendera
+            // ===========================
+            // ECONOMY
+            // ===========================
+
+            $table->string('currency_code', 10)->nullable();
+
+            $table->string('currency_name')->nullable();
+
+            // ===========================
+            // DEMOGRAPHY
+            // ===========================
+
+            $table->string('language')->nullable();
+
+            $table->bigInteger('population')->nullable();
+
+            $table->string('timezone')->nullable();
+
+            // ===========================
+            // FLAG
+            // ===========================
+
+            // Emoji
             $table->string('flag')->nullable();
 
+            // PNG URL
+            $table->string('flag_png')->nullable();
+
+            // SVG URL
+            $table->string('flag_svg')->nullable();
+
             $table->timestamps();
+
         });
     }
 

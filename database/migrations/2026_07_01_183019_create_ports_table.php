@@ -6,12 +6,10 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('ports', function (Blueprint $table) {
+
             $table->id();
 
             $table->foreignId('country_id')
@@ -19,34 +17,23 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
 
-            // Nama pelabuhan
             $table->string('port_name');
 
-            // Kode pelabuhan (jika tersedia)
-            $table->string('port_code')->nullable();
-
-            // Kota
             $table->string('city')->nullable();
 
-            // Lokasi
-            $table->decimal('latitude', 10, 6);
-            $table->decimal('longitude', 10, 6);
+            $table->string('port_type')->default('Sea Port');
 
-            // Status
-            $table->enum('status', [
-                'Active',
-                'Busy',
-                'Maintenance',
-                'Closed'
-            ])->default('Active');
+            $table->decimal('latitude',10,6);
+
+            $table->decimal('longitude',10,6);
+
+            $table->string('status')->default('Active');
 
             $table->timestamps();
+
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('ports');

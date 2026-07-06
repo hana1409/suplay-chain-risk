@@ -9,30 +9,30 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('news_caches', function (Blueprint $table) {
+
             $table->id();
 
             $table->foreignId('country_id')
+                ->nullable()
                 ->constrained('countries')
-                ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->nullOnDelete();
 
             $table->string('title');
 
             $table->text('description')->nullable();
 
-            $table->string('source')->nullable();
+            $table->longText('content')->nullable();
 
-            $table->string('url')->nullable();
+            $table->string('url');
+
+            $table->string('image')->nullable();
+
+            $table->string('source')->nullable();
 
             $table->timestamp('published_at')->nullable();
 
-            $table->enum('sentiment', [
-                'Positive',
-                'Neutral',
-                'Negative'
-            ])->nullable();
-
             $table->timestamps();
+
         });
     }
 
