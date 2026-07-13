@@ -1,0 +1,234 @@
+.countries-page{
+
+    padding:25px;
+
+}
+
+.countries-card{
+
+    background:#111728;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    border:1px solid rgba(255,255,255,.05);
+
+}
+
+.countries-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:22px 28px;
+
+}
+
+.title{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+.number{
+
+    width:34px;
+
+    height:34px;
+
+    background:#1A2035;
+
+    border-radius:50%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    color:#A78BFA;
+
+    font-weight:600;
+
+}
+
+.title h2{
+
+    color:white;
+
+    font-size:24px;
+
+}
+
+.header-right{
+
+    display:flex;
+
+    gap:15px;
+
+}
+
+.search-box{
+
+    position:relative;
+
+}
+
+.search-box i{
+
+    position:absolute;
+
+    left:15px;
+
+    top:14px;
+
+    color:#888;
+
+}
+
+.search-box input{
+
+    width:270px;
+
+    background:#0F1424;
+
+    border:none;
+
+    border-radius:12px;
+
+    color:white;
+
+    padding:12px 15px 12px 42px;
+
+}
+
+.filter-btn{
+
+    background:#7C3AED;
+
+    color:white;
+
+    border:none;
+
+    padding:12px 24px;
+
+    border-radius:12px;
+
+}
+
+.countries-table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+.countries-table thead{
+
+    background:#0F1424;
+
+}
+
+.countries-table th{
+
+    color:#B8C0D9;
+
+    font-size:14px;
+
+    padding:18px;
+
+    text-align:left;
+
+}
+
+.countries-table td{
+
+    padding:18px;
+
+    border-top:1px solid rgba(255,255,255,.05);
+
+    color:white;
+
+}
+
+.countries-table tr:hover{
+
+    background:#181F35;
+
+}
+
+.badge{
+
+    padding:6px 14px;
+
+    border-radius:20px;
+
+    font-size:13px;
+
+}
+
+.low{
+
+    background:#163C2A;
+
+    color:#4ADE80;
+
+}
+
+.view-btn{
+
+    display:inline-block;
+
+    padding:8px 18px;
+
+    background:#6D28D9;
+
+    color:white;
+
+    border-radius:10px;
+
+    text-decoration:none;
+
+}
+
+.pagination-box{
+
+    padding:25px;
+
+    display:flex;
+
+    justify-content:center;
+
+}
+.country-cell{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+.country-flag{
+
+    width:26px;
+
+    height:18px;
+
+    object-fit:cover;
+
+    border-radius:3px;
+
+    box-shadow:0 0 4px rgba(0,0,0,.35);
+
+}

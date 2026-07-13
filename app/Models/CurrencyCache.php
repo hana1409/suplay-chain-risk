@@ -11,11 +11,14 @@ class CurrencyCache extends Model
         'base_currency',
         'target_currency',
         'exchange_rate',
+        'rate_change_pct',
         'rate_date',
     ];
 
     protected $casts = [
-        'rate_date' => 'datetime',
+        'exchange_rate'   => 'float',
+        'rate_change_pct' => 'float',
+        'rate_date'       => 'datetime',
     ];
 
     public function country()

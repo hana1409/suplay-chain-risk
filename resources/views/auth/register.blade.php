@@ -18,7 +18,19 @@
 
         </div>
 
-        <form>
+        @if($errors->any())
+            <div class="alert alert-danger">
+                <ul class="mb-0">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <form method="POST" action="{{ route('register.store') }}">
+
+            @csrf
 
             <div class="mb-3">
 
@@ -26,8 +38,11 @@
 
                 <input
                     type="text"
+                    name="name"
                     class="form-control"
-                    placeholder="John Doe">
+                    placeholder="John Doe"
+                    value="{{ old('name') }}"
+                    required>
 
             </div>
 
@@ -37,8 +52,11 @@
 
                 <input
                     type="email"
+                    name="email"
                     class="form-control"
-                    placeholder="example@email.com">
+                    placeholder="example@email.com"
+                    value="{{ old('email') }}"
+                    required>
 
             </div>
 
@@ -48,8 +66,10 @@
 
                 <input
                     type="password"
+                    name="password"
                     class="form-control"
-                    placeholder="********">
+                    placeholder="********"
+                    required>
 
             </div>
 
@@ -59,8 +79,10 @@
 
                 <input
                     type="password"
+                    name="password_confirmation"
                     class="form-control"
-                    placeholder="********">
+                    placeholder="********"
+                    required>
 
             </div>
 
@@ -69,7 +91,8 @@
                 <input
                     class="form-check-input"
                     type="checkbox"
-                    id="agree">
+                    id="agree"
+                    required>
 
                 <label
                     class="form-check-label text-white"
@@ -81,7 +104,7 @@
 
             </div>
 
-            <button class="btn-login">
+            <button type="submit" class="btn-login">
 
                 Register
 

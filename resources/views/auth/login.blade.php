@@ -18,7 +18,21 @@
 
         </div>
 
-        <form>
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if($errors->any())
+            <div class="alert alert-danger">
+                {{ $errors->first() }}
+            </div>
+        @endif
+
+        <form method="POST" action="{{ route('login.process') }}">
+
+            @csrf
 
             <div class="mb-3">
 
@@ -26,8 +40,11 @@
 
                 <input
                     type="email"
+                    name="email"
                     class="form-control"
-                    placeholder="example@email.com">
+                    placeholder="example@email.com"
+                    value="{{ old('email') }}"
+                    required>
 
             </div>
 
@@ -37,8 +54,10 @@
 
                 <input
                     type="password"
+                    name="password"
                     class="form-control"
-                    placeholder="********">
+                    placeholder="********"
+                    required>
 
             </div>
 
@@ -46,7 +65,7 @@
 
                 <div>
 
-                    <input type="checkbox">
+                    <input type="checkbox" name="remember">
 
                     Remember me
 
@@ -60,7 +79,7 @@
 
             </div>
 
-            <button class="btn-login">
+            <button type="submit" class="btn-login">
 
                 Login
 
@@ -74,25 +93,13 @@
 
         </div>
 
-        <div class="social-login">
+        <div class="social-login justify-content-center">
 
-            <button>
+            <a href="#" class="btn btn-light rounded-circle p-3">
 
-                <i class="bi bi-google"></i>
+                <i class="bi bi-google fs-4 text-danger"></i>
 
-            </button>
-
-            <button>
-
-                <i class="bi bi-github"></i>
-
-            </button>
-
-            <button>
-
-                <i class="bi bi-microsoft"></i>
-
-            </button>
+            </a>
 
         </div>
 
@@ -100,7 +107,7 @@
 
             Don't have an account?
 
-            <a href="/register">
+            <a href="{{ route('register') }}">
 
                 Register
 
