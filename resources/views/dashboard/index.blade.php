@@ -314,31 +314,46 @@
                     <button class="panel-close" onclick="closePanel()"><i class="bi bi-x"></i></button>
                 </div>
                 <div class="panel-body">
+                    {{-- Risk Score Row --}}
                     <div class="panel-risk-score">
                         <div>
                             <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;">Risk Score</div>
                             <div class="panel-risk-number" id="panelScore">—</div>
                         </div>
-                        <span class="risk-badge" id="panelBadge">—</span>
+                        <div style="text-align:right;">
+                            <span class="risk-badge" id="panelBadge">—</span>
+                            <div style="font-size:11px;color:var(--text-muted);margin-top:4px;" id="panelWeather">—</div>
+                        </div>
+                    </div>
+
+                    {{-- Economic Indicators — sourced from economic_caches --}}
+                    <div style="font-size:9px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:6px;display:flex;align-items:center;gap:5px;">
+                        <i class="bi bi-database-fill" style="font-size:9px;"></i> Economic Data
                     </div>
                     <div class="panel-grid">
                         <div class="panel-metric">
-                            <div class="panel-metric-label">GDP</div>
+                            <div class="panel-metric-label"><i class="bi bi-graph-up" style="font-size:9px;margin-right:3px;"></i>GDP</div>
                             <div class="panel-metric-value" id="panelGdp">—</div>
                         </div>
                         <div class="panel-metric">
-                            <div class="panel-metric-label">Inflation</div>
+                            <div class="panel-metric-label"><i class="bi bi-percent" style="font-size:9px;margin-right:3px;"></i>Inflation</div>
                             <div class="panel-metric-value" id="panelInflation">—</div>
                         </div>
                         <div class="panel-metric">
-                            <div class="panel-metric-label">Population</div>
+                            <div class="panel-metric-label"><i class="bi bi-people-fill" style="font-size:9px;margin-right:3px;"></i>Population</div>
                             <div class="panel-metric-value" id="panelPop">—</div>
                         </div>
                         <div class="panel-metric">
-                            <div class="panel-metric-label">Weather</div>
-                            <div class="panel-metric-value" id="panelWeather">—</div>
+                            <div class="panel-metric-label"><i class="bi bi-box-arrow-up-right" style="font-size:9px;margin-right:3px;"></i>Exports</div>
+                            <div class="panel-metric-value" id="panelExports" style="color:var(--risk-low);">—</div>
                         </div>
                     </div>
+                    {{-- Imports — full-width card --}}
+                    <div class="panel-metric" style="margin-bottom:14px;">
+                        <div class="panel-metric-label"><i class="bi bi-box-arrow-in-down-left" style="font-size:9px;margin-right:3px;"></i>Imports</div>
+                        <div class="panel-metric-value" id="panelImports" style="color:var(--risk-medium);">—</div>
+                    </div>
+
                     <div class="panel-actions">
                         <a href="#" id="panelDetailBtn" class="panel-btn-detail">
                             <i class="bi bi-arrow-right-circle"></i> Detail
@@ -826,13 +841,15 @@ function loadCountryPanel(code) {
         document.getElementById('panelBadge').className    = `risk-badge risk-${(cached.level||'').toLowerCase()}`;
     }
 
-    // Load full data
+    // Load full data from API (all economic fields from economic_caches)
     fetch(`/api/map/country/${code}`)
         .then(r => r.json())
         .then(data => {
-            document.getElementById('panelGdp').textContent       = data.gdp       || 'N/A';
-            document.getElementById('panelInflation').textContent = data.inflation  || 'N/A';
-            document.getElementById('panelPop').textContent       = data.population || 'N/A';
+            document.getElementById('panelGdp').textContent       = data.gdp        || 'N/A';
+            document.getElementById('panelInflation').textContent = data.inflation   || 'N/A';
+            document.getElementById('panelPop').textContent       = data.population  || 'N/A';
+            document.getElementById('panelExports').textContent   = data.exports     || 'N/A';
+            document.getElementById('panelImports').textContent   = data.imports     || 'N/A';
             document.getElementById('panelWeather').textContent   = `${data.weather_icon || ''} ${data.temperature || 'N/A'}`;
             document.getElementById('panelDetailBtn').href        = data.detail_url;
             document.getElementById('panelCompareBtn').href       = data.compare_url;

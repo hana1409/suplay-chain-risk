@@ -50,6 +50,11 @@ class Country extends Model
         return $this->hasOne(WeatherCache::class)->latestOfMany();
     }
 
+    public function currencyCache()
+    {
+        return $this->hasOne(CurrencyCache::class)->latestOfMany();
+    }
+
     public function ports()
     {
         return $this->hasMany(Port::class);

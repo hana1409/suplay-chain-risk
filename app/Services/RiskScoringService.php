@@ -68,7 +68,7 @@ class RiskScoringService
                     ->latest()
                     ->first();
 
-        if (!$weather) return 20.0; // default moderate if no data
+        if (!$weather) return 0.0; // no data = 0 contribution
 
         return $weather->weather_risk_score;
     }
@@ -83,7 +83,7 @@ class RiskScoringService
                     ->orderByDesc('year')
                     ->first();
 
-        if (!$economic || $economic->inflation === null) return 30.0;
+        if (!$economic || $economic->inflation === null) return 0.0; // no data = 0 contribution
 
         $inflation = (float) $economic->inflation;
 
@@ -111,7 +111,7 @@ class RiskScoringService
                     ->latest()
                     ->first();
 
-        if (!$currency) return 25.0;
+        if (!$currency) return 0.0; // no data = 0 contribution
 
         $changePct = abs((float) ($currency->rate_change_pct ?? 0));
 
@@ -138,7 +138,7 @@ class RiskScoringService
                         ->limit(20)
                         ->get();
 
-        if ($newsCaches->isEmpty()) return 30.0;
+        if ($newsCaches->isEmpty()) return 0.0; // no data = 0 contribution
 
         $articles = $newsCaches->map(fn($n) => [
             'title'       => $n->title,
@@ -155,22 +155,48 @@ class RiskScoringService
     // =====================================================
 
     /**
-     * Recalculate risk scores for all countries that have cached data.
+     * Recalculate and persist risk scores for ALL countries.
+     * Missing cache data contributes 0 to that component (not skipped).
+     * Returns a summary array with totals.
      */
     public function calculateAll(): array
     {
+        $scored  = 0;
+        $failed  = 0;
         $results = [];
-        $countries = Country::with(['weatherCache', 'economicCache', 'newsCaches'])
-                        ->get();
+
+        // Eager-load all four cache tables to avoid N+1
+        $countries = Country::with([
+            'weatherCache',
+            'economicCache',
+            'currencyCaches',
+            'newsCaches',
+        ])->get();
 
         foreach ($countries as $country) {
-            $riskScore = $this->calculate($country);
-            $results[] = [
-                'country'     => $country->country_name,
-                'total_score' => $riskScore->total_score,
-                'risk_level'  => $riskScore->risk_level,
-            ];
+            try {
+                $riskScore = $this->calculate($country);
+                $results[] = [
+                    'country'     => $country->country_name,
+                    'total_score' => $riskScore->total_score,
+                    'risk_level'  => $riskScore->risk_level,
+                ];
+                $scored++;
+            } catch (\Throwable $e) {
+                $results[] = [
+                    'country'     => $country->country_name,
+                    'total_score' => null,
+                    'risk_level'  => 'Error: ' . $e->getMessage(),
+                ];
+                $failed++;
+            }
         }
+
+        $results['_summary'] = [
+            'total'   => $countries->count(),
+            'scored'  => $scored,
+            'failed'  => $failed,
+        ];
 
         return $results;
     }

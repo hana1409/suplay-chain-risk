@@ -72,6 +72,20 @@ class MapController extends Controller
                        ->exists()
             : false;
 
+        // Format a large numeric value (GDP/Exports/Imports) into T/B/M string
+        $formatBig = function (?float $val): string {
+            if ($val === null || $val == 0) return 'N/A';
+            if ($val >= 1_000_000_000_000) return '$' . round($val / 1_000_000_000_000, 2) . 'T';
+            if ($val >= 1_000_000_000)     return '$' . round($val / 1_000_000_000, 2) . 'B';
+            if ($val >= 1_000_000)         return '$' . round($val / 1_000_000, 2) . 'M';
+            return '$' . number_format($val, 0);
+        };
+
+        // Population from economic_caches (falls back to N/A if missing)
+        $population = $economic?->population
+            ? number_format((int) $economic->population)
+            : 'N/A';
+
         return response()->json([
             'id'           => $country->id,
             'code'         => $country->country_code,
@@ -80,13 +94,17 @@ class MapController extends Controller
             'flag_emoji'   => $country->flag,
             'region'       => $country->region,
             'capital'      => $country->capital,
-            'population'   => $country->formatted_population,
             'currency'     => $country->currency_code,
             'risk_score'   => $risk?->total_score ?? 0,
             'risk_level'   => $risk?->risk_level ?? 'N/A',
             'risk_color'   => $risk?->risk_color ?? '#6B7280',
+            // Economic indicators — all from economic_caches
             'gdp'          => $economic?->formatted_gdp ?? 'N/A',
-            'inflation'    => $economic ? round($economic->inflation ?? 0, 2) . '%' : 'N/A',
+            'inflation'    => $economic?->inflation !== null ? round($economic->inflation, 2) . '%' : 'N/A',
+            'population'   => $population,
+            'exports'      => $formatBig($economic?->exports),
+            'imports'      => $formatBig($economic?->imports),
+            // Weather
             'temperature'  => $weather ? $weather->temperature . '°C' : 'N/A',
             'weather_icon' => $weather?->weather_icon ?? '🌡️',
             'is_watched'   => $isWatched,

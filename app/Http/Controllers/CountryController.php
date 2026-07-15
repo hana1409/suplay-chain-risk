@@ -106,7 +106,6 @@ class CountryController extends Controller
                     [
                         'gdp'       => $gdp,
                         'inflation' => $inflation,
-                        'population'=> $country->population,
                     ]
                 );
             }

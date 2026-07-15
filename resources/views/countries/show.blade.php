@@ -324,7 +324,13 @@
     <div class="info-card">
         <span class="info-card-icon">👥</span>
         <div class="info-card-label">Population</div>
-        <div class="info-card-value">{{ $country->formatted_population }}</div>
+        <div class="info-card-value">
+            @if($economic?->population)
+                {{ number_format((int) $economic->population) }}
+            @else
+                N/A
+            @endif
+        </div>
         <div class="info-card-sub">{{ $country->country_name }}</div>
     </div>
 
@@ -335,6 +341,44 @@
             {{ $currency ? '1 USD = ' . number_format($currency->exchange_rate, 4) . ' ' . $currency->target_currency : 'N/A' }}
         </div>
         <div class="info-card-sub">Open Exchange Rates</div>
+    </div>
+
+    <div class="info-card">
+        <span class="info-card-icon">📦</span>
+        <div class="info-card-label">Exports</div>
+        @php
+            $exports = $economic?->exports;
+            $exportsFormatted = match(true) {
+                $exports === null        => 'N/A',
+                $exports >= 1_000_000_000_000 => '$' . round($exports / 1_000_000_000_000, 2) . 'T',
+                $exports >= 1_000_000_000     => '$' . round($exports / 1_000_000_000, 2) . 'B',
+                $exports >= 1_000_000         => '$' . round($exports / 1_000_000, 2) . 'M',
+                default                       => '$' . number_format($exports, 0),
+            };
+        @endphp
+        <div class="info-card-value" style="color:{{ $exports ? 'var(--risk-low)' : 'var(--text-primary)' }}">
+            {{ $exportsFormatted }}
+        </div>
+        <div class="info-card-sub">Economic Cache</div>
+    </div>
+
+    <div class="info-card">
+        <span class="info-card-icon">🛳️</span>
+        <div class="info-card-label">Imports</div>
+        @php
+            $imports = $economic?->imports;
+            $importsFormatted = match(true) {
+                $imports === null        => 'N/A',
+                $imports >= 1_000_000_000_000 => '$' . round($imports / 1_000_000_000_000, 2) . 'T',
+                $imports >= 1_000_000_000     => '$' . round($imports / 1_000_000_000, 2) . 'B',
+                $imports >= 1_000_000         => '$' . round($imports / 1_000_000, 2) . 'M',
+                default                       => '$' . number_format($imports, 0),
+            };
+        @endphp
+        <div class="info-card-value" style="color:{{ $imports ? 'var(--risk-medium)' : 'var(--text-primary)' }}">
+            {{ $importsFormatted }}
+        </div>
+        <div class="info-card-sub">Economic Cache</div>
     </div>
 
     <div class="info-card">
