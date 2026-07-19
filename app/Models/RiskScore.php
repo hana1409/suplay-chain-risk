@@ -72,9 +72,9 @@ class RiskScore extends Model
      */
     public static function levelFromScore(float $score): string
     {
-        if ($score <= 25)  return 'Low';
-        if ($score <= 50)  return 'Medium';
-        if ($score <= 75)  return 'High';
+        if ($score < 30)  return 'Low';
+        if ($score < 60)  return 'Medium';
+        if ($score < 80)  return 'High';
         return 'Critical';
     }
 }

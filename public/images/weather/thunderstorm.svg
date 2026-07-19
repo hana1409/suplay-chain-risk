@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="48" height="48">
+  <defs>
+    <filter id="glow"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <linearGradient id="bolt" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FDE047"/>
+      <stop offset="100%" stop-color="#FACC15"/>
+    </linearGradient>
+  </defs>
+  <!-- Dark storm cloud -->
+  <ellipse cx="32" cy="24" rx="22" ry="13" fill="#374151" opacity="0.95"/>
+  <ellipse cx="20" cy="21" rx="12" ry="10" fill="#374151"/>
+  <ellipse cx="42" cy="20" rx="11" ry="9" fill="#374151"/>
+  <ellipse cx="32" cy="20" rx="16" ry="9" fill="#4B5563"/>
+  <!-- Rain -->
+  <g stroke="#60A5FA" stroke-width="1.8" stroke-linecap="round" opacity="0.8">
+    <line x1="17" y1="36" x2="14" y2="44"/>
+    <line x1="43" y1="36" x2="40" y2="44"/>
+  </g>
+  <!-- Lightning bolt -->
+  <polygon points="35,36 28,47 33,47 29,58 40,44 35,44" fill="url(#bolt)" filter="url(#glow)"/>
+</svg>

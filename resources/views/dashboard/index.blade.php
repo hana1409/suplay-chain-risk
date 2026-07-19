@@ -145,6 +145,23 @@
     font-weight: 700;
     color: var(--text-primary);
 }
+
+/* ── Leaflet Zoom Control for Light Theme ── */
+.leaflet-bar a {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    color: #475569 !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+.leaflet-bar a:hover {
+    background-color: #ffffff !important;
+    color: var(--accent) !important;
+}
+.leaflet-bar {
+    border: none !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+    border-radius: 8px !important;
+    overflow: hidden;
+}
 </style>
 @endpush
 
@@ -262,8 +279,8 @@
             <div style="display:flex;gap:8px;align-items:center;">
                 {{-- Tile layer toggle --}}
                 <div style="display:flex;gap:4px;">
-                    <button class="map-ctrl-btn tile-btn active" id="tileDark" onclick="setTileLayer('dark')">
-                        <i class="bi bi-moon-stars-fill"></i> Dark
+                    <button class="map-ctrl-btn tile-btn active" id="tileLight" onclick="setTileLayer('light')">
+                        <i class="bi bi-sun-fill"></i> Light
                     </button>
                     <button class="map-ctrl-btn tile-btn" id="tileSatellite" onclick="setTileLayer('satellite')">
                         <i class="bi bi-layers-fill"></i> Satellite
@@ -290,18 +307,17 @@
             {{-- Map --}}
             <div id="world-map"></div>
 
-            {{-- Map Stat Bar --}}
-            <div style="position:absolute;bottom:0;left:0;right:0;z-index:500;background:rgba(7,11,24,0.88);backdrop-filter:blur(8px);border-top:1px solid var(--border);padding:8px 16px;display:flex;align-items:center;gap:20px;">
-                <div style="font-size:11px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Map Feed</div>
-                <div id="mapCounterText" style="font-size:12px;color:var(--text-secondary);">Loading...</div>
-                <div style="margin-left:auto;display:flex;gap:16px;">
-                    <span class="legend-item" style="margin:0;"><span class="legend-dot" style="background:#10B981"></span> Low</span>
-                    <span class="legend-item" style="margin:0;"><span class="legend-dot" style="background:#F59E0B"></span> Medium</span>
-                    <span class="legend-item" style="margin:0;"><span class="legend-dot" style="background:#F97316"></span> High</span>
-                    <span class="legend-item" style="margin:0;"><span class="legend-dot" style="background:#EF4444"></span> Critical</span>
-                    <span class="legend-item" style="margin:0;"><span class="legend-dot" style="background:#374151"></span> No data</span>
-                </div>
+            {{-- Map Legend --}}
+            <div style="position:absolute;bottom:24px;left:24px;z-index:500;background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);border:1px solid rgba(0,0,0,0.05);border-radius:12px;padding:14px 18px;box-shadow:0 4px 16px rgba(0,0,0,0.08);display:flex;flex-direction:column;gap:10px;font-size:12px;color:var(--text-secondary);">
+                <div style="font-size:10px;color:var(--text-muted);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:2px;">Risk Level</div>
+                <div style="display:flex;align-items:center;gap:8px;"><span style="width:10px;height:10px;border-radius:50%;background:#10B981;opacity:0.75;border:1px solid #fff;"></span> Low</div>
+                <div style="display:flex;align-items:center;gap:8px;"><span style="width:10px;height:10px;border-radius:50%;background:#F59E0B;opacity:0.75;border:1px solid #fff;"></span> Medium</div>
+                <div style="display:flex;align-items:center;gap:8px;"><span style="width:10px;height:10px;border-radius:50%;background:#F97316;opacity:0.75;border:1px solid #fff;"></span> High</div>
+                <div style="display:flex;align-items:center;gap:8px;"><span style="width:10px;height:10px;border-radius:50%;background:#EF4444;opacity:0.75;border:1px solid #fff;"></span> Critical</div>
             </div>
+            
+            {{-- Hidden counter text to prevent JS errors --}}
+            <div id="mapCounterText" style="display:none;"></div>
 
             {{-- Country Popup Panel --}}
             <div class="country-panel" id="countryPanel">
@@ -685,7 +701,7 @@ const map = L.map('world-map', {
 
 // Tile layers
 const tileLayers = {
-    dark: L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    light: L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
         attribution: '© OpenStreetMap © CARTO',
         subdomains: 'abcd',
         maxZoom: 20,
@@ -696,8 +712,8 @@ const tileLayers = {
     }),
 };
 
-let currentTile = 'dark';
-tileLayers.dark.addTo(map);
+let currentTile = 'light';
+tileLayers.light.addTo(map);
 
 // Custom zoom position
 L.control.zoom({ position: 'bottomright' }).addTo(map);
@@ -711,25 +727,24 @@ let currentPanel   = null;
 let markerGroup    = L.layerGroup().addTo(map);
 
 function getRiskSize(score) {
-    if (score > 75) return 14;
-    if (score > 50) return 12;
-    if (score > 25) return 10;
-    return 8;
+    if (score > 75) return 7;
+    if (score > 50) return 6;
+    if (score > 25) return 5.5;
+    return 5;
 }
 
 function createCircleMarker(country) {
     const color = country.color || '#374151';
     const score = country.score || 0;
     const size  = getRiskSize(score);
-    const isCrit = score > 75;
 
     const marker = L.circleMarker([country.lat, country.lng], {
         radius:      size,
         fillColor:   color,
-        color:       isCrit ? 'rgba(239,68,68,0.6)' : color,
-        weight:      isCrit ? 2.5 : 1.5,
-        opacity:     0.95,
-        fillOpacity: isCrit ? 0.85 : 0.75,
+        color:       '#ffffff',
+        weight:      1.5,
+        opacity:     0.9,
+        fillOpacity: 0.8,
     });
 
     marker.on('click', () => loadCountryPanel(country.code));

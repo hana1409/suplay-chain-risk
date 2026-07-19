@@ -52,7 +52,7 @@ class CalculateRisk extends Command
         Country::with([
             'weatherCache',
             'economicCache',
-            'currencyCaches',
+            'currencyCache',
             'newsCaches',
         ])
         ->chunkById($chunkSize, function ($countries) use (

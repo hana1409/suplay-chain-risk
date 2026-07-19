@@ -41,6 +41,8 @@ Route::middleware('auth')->group(function () {
     // Map AJAX endpoints
     Route::get('/api/map/countries',         [MapController::class, 'countriesData'])->name('api.map.countries');
     Route::get('/api/map/country/{code}',    [MapController::class, 'countryPopup'])->name('api.map.country-popup');
+    Route::get('/api/map/ports',             [MapController::class, 'portsData'])->name('api.map.ports');
+    Route::get('/api/map/port/{port}/weather', [MapController::class, 'portWeather'])->name('api.map.port-weather');
 
     // ----- Countries -----
     Route::get('/countries',           [CountryController::class, 'index'])->name('countries');

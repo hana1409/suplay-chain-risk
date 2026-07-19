@@ -6,7 +6,7 @@
 
     min-height:100vh;
 
-    background:#070B18;
+    background:#F5F7F4;
 
     display:flex;
 
@@ -32,11 +32,11 @@
 
     height:500px;
 
-    background:#8B5CF6;
+    background:#0F766E;
 
     filter:blur(180px);
 
-    opacity:.15;
+    opacity:.08;
 
     top:-120px;
 
@@ -48,15 +48,15 @@
 
     width:470px;
 
-    background:#101425;
+    background:#FFFFFF;
 
     border-radius:24px;
 
     padding:45px;
 
-    border:1px solid rgba(255,255,255,.05);
+    border:1px solid #E5E7EB;
 
-    box-shadow:0 20px 60px rgba(0,0,0,.4);
+    box-shadow:0 20px 60px rgba(15,118,110,0.10);
 
     position:relative;
 
@@ -82,7 +82,7 @@
 
 .login-header h2{
 
-    color:white;
+    color:#1F2937;
 
     font-weight:700;
 
@@ -90,13 +90,13 @@
 
 .login-header p{
 
-    color:#9CA3AF;
+    color:#6B7280;
 
 }
 
 label{
 
-    color:white;
+    color:#374151;
 
     margin-bottom:8px;
 
@@ -104,11 +104,11 @@ label{
 
 .form-control{
 
-    background:#171C31;
+    background:#F9FAFB;
 
-    border:1px solid #262D47;
+    border:1px solid #E5E7EB;
 
-    color:white;
+    color:#1F2937;
 
     height:50px;
 
@@ -118,19 +118,19 @@ label{
 
 .form-control::placeholder{
 
-    color:#7B819B;
+    color:#9CA3AF;
 
 }
 
 .form-control:focus{
 
-    background:#171C31;
+    background:#FFFFFF;
 
-    color:white;
+    color:#1F2937;
 
-    border-color:#8B5CF6;
+    border-color:#0F766E;
 
-    box-shadow:0 0 15px rgba(139,92,246,.25);
+    box-shadow:0 0 15px rgba(15,118,110,.15);
 
 }
 
@@ -144,7 +144,7 @@ label{
 
     margin:18px 0 25px;
 
-    color:white;
+    color:#374151;
 
     font-size:14px;
 
@@ -152,7 +152,7 @@ label{
 
 .remember a{
 
-    color:#8B5CF6;
+    color:#0F766E;
 
     text-decoration:none;
 
@@ -168,7 +168,7 @@ label{
 
     border-radius:12px;
 
-    background:#8B5CF6;
+    background:linear-gradient(135deg,#0F766E,#065F46);
 
     color:white;
 
@@ -180,9 +180,11 @@ label{
 
 .btn-login:hover{
 
-    background:#7C3AED;
+    background:linear-gradient(135deg,#0D9488,#0F766E);
 
     transform:translateY(-2px);
+
+    box-shadow:0 8px 20px rgba(15,118,110,.25);
 
 }
 
@@ -190,7 +192,7 @@ label{
 
     text-align:center;
 
-    color:#8A8FA7;
+    color:#9CA3AF;
 
     margin:30px 0 20px;
 
@@ -210,11 +212,11 @@ label{
 
     height:50px;
 
-    background:#171C31;
+    background:#F5F7F4;
 
-    color:white;
+    color:#374151;
 
-    border:none;
+    border:1px solid #E5E7EB;
 
     border-radius:12px;
 
@@ -226,7 +228,11 @@ label{
 
 .social-login button:hover{
 
-    background:#8B5CF6;
+    background:#D1FAE5;
+
+    border-color:#0F766E;
+
+    color:#0F766E;
 
 }
 
@@ -236,13 +242,13 @@ label{
 
     margin-top:30px;
 
-    color:#B8B8B8;
+    color:#6B7280;
 
 }
 
 .register-link a{
 
-    color:#8B5CF6;
+    color:#0F766E;
 
     text-decoration:none;
 

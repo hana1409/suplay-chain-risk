@@ -55,6 +55,11 @@ class Country extends Model
         return $this->hasOne(CurrencyCache::class)->latestOfMany();
     }
 
+    public function currencyCaches()
+    {
+        return $this->hasMany(CurrencyCache::class)->orderByDesc('rate_date');
+    }
+
     public function ports()
     {
         return $this->hasMany(Port::class);

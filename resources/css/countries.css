@@ -6,13 +6,15 @@
 
 .countries-card{
 
-    background:#111728;
+    background:#FFFFFF;
 
     border-radius:18px;
 
     overflow:hidden;
 
-    border:1px solid rgba(255,255,255,.05);
+    border:1px solid #E5E7EB;
+
+    box-shadow:0 2px 12px rgba(15,118,110,0.06);
 
 }
 
@@ -44,7 +46,7 @@
 
     height:34px;
 
-    background:#1A2035;
+    background:#D1FAE5;
 
     border-radius:50%;
 
@@ -54,7 +56,7 @@
 
     align-items:center;
 
-    color:#A78BFA;
+    color:#0F766E;
 
     font-weight:600;
 
@@ -62,7 +64,7 @@
 
 .title h2{
 
-    color:white;
+    color:#1F2937;
 
     font-size:24px;
 
@@ -90,7 +92,7 @@
 
     top:14px;
 
-    color:#888;
+    color:#9CA3AF;
 
 }
 
@@ -98,21 +100,33 @@
 
     width:270px;
 
-    background:#0F1424;
+    background:#F5F7F4;
 
-    border:none;
+    border:1px solid #E5E7EB;
 
     border-radius:12px;
 
-    color:white;
+    color:#1F2937;
 
     padding:12px 15px 12px 42px;
 
+    font-family:'Plus Jakarta Sans',sans-serif;
+
+}
+
+.search-box input::placeholder{
+    color:#9CA3AF;
+}
+
+.search-box input:focus{
+    outline:none;
+    border-color:#0F766E;
+    box-shadow:0 0 0 3px rgba(15,118,110,0.10);
 }
 
 .filter-btn{
 
-    background:#7C3AED;
+    background:#0F766E;
 
     color:white;
 
@@ -122,6 +136,13 @@
 
     border-radius:12px;
 
+    font-family:'Plus Jakarta Sans',sans-serif;
+    font-weight:600;
+    transition:.2s;
+}
+
+.filter-btn:hover{
+    background:#065F46;
 }
 
 .countries-table{
@@ -134,15 +155,21 @@
 
 .countries-table thead{
 
-    background:#0F1424;
+    background:#F0FDF4;
 
 }
 
 .countries-table th{
 
-    color:#B8C0D9;
+    color:#6B7280;
 
-    font-size:14px;
+    font-size:12px;
+
+    font-weight:700;
+
+    text-transform:uppercase;
+
+    letter-spacing:0.05em;
 
     padding:18px;
 
@@ -154,15 +181,15 @@
 
     padding:18px;
 
-    border-top:1px solid rgba(255,255,255,.05);
+    border-top:1px solid #E5E7EB;
 
-    color:white;
+    color:#374151;
 
 }
 
 .countries-table tr:hover{
 
-    background:#181F35;
+    background:#F0FDF4;
 
 }
 
@@ -178,9 +205,11 @@
 
 .low{
 
-    background:#163C2A;
+    background:rgba(22,163,74,0.10);
 
-    color:#4ADE80;
+    color:#16A34A;
+
+    border:1px solid rgba(22,163,74,0.20);
 
 }
 
@@ -190,7 +219,7 @@
 
     padding:8px 18px;
 
-    background:#6D28D9;
+    background:linear-gradient(135deg,#0F766E,#065F46);
 
     color:white;
 
@@ -198,6 +227,17 @@
 
     text-decoration:none;
 
+    font-weight:600;
+
+    font-size:13px;
+
+    transition:.2s;
+
+}
+
+.view-btn:hover{
+    opacity:0.9;
+    color:white;
 }
 
 .pagination-box{
@@ -229,6 +269,6 @@
 
     border-radius:3px;
 
-    box-shadow:0 0 4px rgba(0,0,0,.35);
+    box-shadow:0 0 4px rgba(0,0,0,.15);
 
 }

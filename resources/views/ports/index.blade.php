@@ -1,6 +1,31 @@
 @extends('layouts.dashboard')
 @section('title', 'Port Dashboard — Global Ports')
 
+@push('styles')
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+<style>
+/* Custom MarkerCluster Styles to match the green theme */
+.marker-cluster-small,
+.marker-cluster-medium,
+.marker-cluster-large {
+    background-color: rgba(22, 163, 74, 0.4);
+}
+.marker-cluster-small div,
+.marker-cluster-medium div,
+.marker-cluster-large div {
+    background-color: rgba(22, 163, 74, 0.9);
+    color: white;
+    font-weight: bold;
+    font-family: 'Inter', sans-serif;
+}
+.port-circle-marker {
+    outline: none;
+    cursor: pointer;
+}
+</style>
+@endpush
+
 @section('content')
 
 <div class="page-header">
@@ -72,23 +97,20 @@
 @endsection
 
 @push('scripts')
+<script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
 <script>
 // Port Map
 const map = L.map('port-map', { center: [20, 0], zoom: 2, zoomControl: true });
 
-L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
     attribution: '© OpenStreetMap © CARTO',
     subdomains: 'abcd',
 }).addTo(map);
 
-const portIcon = L.divIcon({
-    className: '',
-    html: '<div style="width:8px;height:8px;border-radius:50%;background:#8B5CF6;border:1.5px solid rgba(139,92,246,0.5);box-shadow:0 0 6px rgba(139,92,246,0.5);"></div>',
-    iconSize: [8, 8],
-    iconAnchor: [4, 4],
-});
-
-let markerGroup = L.layerGroup().addTo(map);
+let markerGroup = L.markerClusterGroup({
+    chunkedLoading: true,
+    maxClusterRadius: 40,
+}).addTo(map);
 let allPorts    = [];
 
 function loadPorts(params = {}) {
@@ -105,8 +127,20 @@ function loadPorts(params = {}) {
 
 function renderMarkers(ports) {
     markerGroup.clearLayers();
-    ports.slice(0, 2000).forEach(p => {
-        const m = L.marker([p.lat, p.lng], { icon: portIcon });
+    const markers = [];
+    ports.forEach(p => {
+        const m = L.circleMarker([p.lat, p.lng], {
+            radius: 5,
+            fillColor: '#16A34A',
+            color: '#FFFFFF',
+            weight: 2,
+            fillOpacity: 0.9,
+            className: 'port-circle-marker'
+        });
+
+        m.on('mouseover', function () { this.setRadius(6.5); });
+        m.on('mouseout', function () { this.setRadius(5); });
+
         m.bindPopup(`
             <div style="font-family:Inter,sans-serif;min-width:180px;">
                 <b style="font-size:13px;color:#F1F5F9;">${p.name}</b><br>
@@ -117,8 +151,9 @@ function renderMarkers(ports) {
                 <a href="${p.country_url}" style="font-size:11px;color:#8B5CF6;text-decoration:none;display:block;margin-top:6px;">View Country →</a>
             </div>
         `);
-        m.addTo(markerGroup);
+        markers.push(m);
     });
+    markerGroup.addLayers(markers);
 }
 
 function renderList(ports) {
