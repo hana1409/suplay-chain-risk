@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\NewsCache;
+use App\Models\Article;
 use App\Models\Country;
 use App\Services\NewsService;
 use App\Services\SentimentService;
@@ -20,28 +21,93 @@ class NewsController extends Controller
     {
         $category = $request->get('category', 'all');
 
-        $query = NewsCache::with('country')->latest();
-
-        if ($category !== 'all') {
-            $keywords = $this->categoryKeywords($category);
-            $query->where(function ($q) use ($keywords) {
-                foreach ($keywords as $kw) {
-                    $q->orWhere('title', 'like', "%{$kw}%");
-                }
+        // Gabungkan NewsCache dan Articles
+        $newsCache = NewsCache::with('country')
+            ->when($category !== 'all', function ($q) use ($category) {
+                $keywords = $this->categoryKeywords($category);
+                $q->where(function ($query) use ($keywords) {
+                    foreach ($keywords as $kw) {
+                        $query->orWhere('title', 'like', "%{$kw}%");
+                    }
+                });
+            })
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'type'         => 'news',
+                    'title'        => $item->title,
+                    'description'  => $item->description,
+                    'content'      => $item->content,
+                    'image'        => $item->image,
+                    'url'          => $item->url,
+                    'source'       => $item->source,
+                    'country'      => $item->country,
+                    'published_at' => $item->published_at,
+                    'sentiment'    => $item->sentiment,
+                    'created_at'   => $item->created_at,
+                ];
             });
-        }
 
-        $news = $query->paginate(12)->withQueryString();
+        // Ambil artikel yang Published
+        $articles = Article::where('status', 'Published')
+            ->when($category !== 'all', function ($q) use ($category) {
+                $q->where('category', $category);
+            })
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'type'         => 'article',
+                    'title'        => $item->title,
+                    'description'  => null,
+                    'content'      => $item->content,
+                    'image'        => $item->image,
+                    'url'          => route('news.show', $item->slug),
+                    'source'       => 'Internal Article',
+                    'country'      => null,
+                    'published_at' => $item->created_at,
+                    'sentiment'    => null,
+                    'created_at'   => $item->created_at,
+                ];
+            });
 
-        // Sentiment summary
+        // Gabungkan dan urutkan berdasarkan tanggal terbaru
+        $news = $newsCache->merge($articles)
+            ->sortByDesc('published_at')
+            ->values();
+
+        // Pagination manual
+        $perPage = 12;
+        $currentPage = $request->get('page', 1);
+        $total = $news->count();
+        $news = $news->slice(($currentPage - 1) * $perPage, $perPage)->values();
+
+        // Buat objek pagination sederhana
+        $news = new \Illuminate\Pagination\LengthAwarePaginator(
+            $news,
+            $total,
+            $perPage,
+            $currentPage,
+            ['path' => $request->url(), 'query' => $request->query()]
+        );
+
+        // Sentiment summary (hanya dari NewsCache)
         $sentimentCounts = NewsCache::selectRaw("sentiment, COUNT(*) as count")
             ->groupBy('sentiment')
             ->pluck('count', 'sentiment')
             ->toArray();
 
-        $totalNews = array_sum($sentimentCounts);
+        $totalNews = $total;
 
         return view('news.index', compact('news', 'category', 'sentimentCounts', 'totalNews'));
+    }
+
+    public function show($slug)
+    {
+        $article = Article::where('slug', $slug)
+            ->where('status', 'Published')
+            ->firstOrFail();
+
+        return view('news.show', compact('article'));
     }
 
     public function refresh()

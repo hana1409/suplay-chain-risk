@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ApiLog;
 use App\Models\Article;
 use App\Models\ComparisonLog;
+use App\Models\Contact;
 use App\Models\Country;
 use App\Models\CurrencyCache;
 use App\Models\EconomicCache;
@@ -740,5 +741,61 @@ class AdminController extends Controller
         $user->update(['password' => Hash::make($request->password)]);
 
         return back()->with('success', 'Password changed successfully.');
+    }
+
+    // =========================================================
+    // 14. CONTACTS
+    // =========================================================
+
+    public function contacts(Request $request)
+    {
+        $search = $request->get('search');
+        $status = $request->get('status'); // all, read, unread
+
+        $contacts = Contact::query()
+            ->when($search, function ($q) use ($search) {
+                $q->where(function ($query) use ($search) {
+                    $query->where('first_name', 'like', "%{$search}%")
+                        ->orWhere('last_name', 'like', "%{$search}%")
+                        ->orWhere('email', 'like', "%{$search}%")
+                        ->orWhere('subject', 'like', "%{$search}%");
+                });
+            })
+            ->when($status === 'read', fn($q) => $q->read())
+            ->when($status === 'unread', fn($q) => $q->unread())
+            ->orderBy('created_at', 'desc')
+            ->paginate(15);
+
+        $unreadCount = Contact::unread()->count();
+
+        return view('admin.contacts', compact('contacts', 'unreadCount'));
+    }
+
+    public function contactShow(Contact $contact)
+    {
+        // Mark as read when viewed
+        if (!$contact->is_read) {
+            $contact->update(['is_read' => true]);
+        }
+
+        return view('admin.contact-show', compact('contact'));
+    }
+
+    public function contactDestroy(Contact $contact)
+    {
+        $contact->delete();
+
+        return redirect()->route('admin.contacts')
+            ->with('success', 'Contact message deleted successfully.');
+    }
+
+    public function contactToggleRead(Contact $contact)
+    {
+        $contact->update(['is_read' => !$contact->is_read]);
+
+        return response()->json([
+            'success' => true,
+            'is_read' => $contact->is_read,
+        ]);
     }
 }

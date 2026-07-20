@@ -10,13 +10,21 @@ use App\Http\Controllers\ComparisonController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PortController;
 use App\Http\Controllers\WatchlistController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\CurrencyDashboardController;
 use App\Http\Controllers\Admin\AdminController;
 
 // ===================================
 // PUBLIC ROUTES
 // ===================================
 
-Route::get('/', [LandingController::class, 'index']);
+Route::get('/', [LandingController::class, 'index'])->name('landing');
+Route::get('/features', [LandingController::class, 'features'])->name('landing.features');
+Route::get('/landing-countries', [LandingController::class, 'countries'])->name('landing.countries');
+Route::get('/about', [LandingController::class, 'about'])->name('landing.about');
+Route::get('/pricing', [LandingController::class, 'pricing'])->name('landing.pricing');
+Route::get('/contact', [LandingController::class, 'contact'])->name('landing.contact');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 Route::get('/login',  [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'loginProcess'])->name('login.process');
@@ -56,8 +64,20 @@ Route::middleware('auth')->group(function () {
     Route::get('/compare/{codeA}/{codeB}',            [ComparisonController::class, 'show'])->name('compare.show');
     Route::post('/compare',                           [ComparisonController::class, 'compare'])->name('compare.process');
 
+    // ----- Currency Dashboard -----
+    Route::get('/currency-dashboard',                 [CurrencyDashboardController::class, 'index'])->name('currency.dashboard');
+    Route::get('/api/currency/refresh',               [CurrencyDashboardController::class, 'refreshComparison'])->name('api.currency.refresh');
+
+    // ----- Data Visualization -----
+    Route::get('/data-visualization',                 [\App\Http\Controllers\DataVisualizationController::class, 'index'])->name('data.visualization');
+    Route::get('/api/visualization/gdp',              [\App\Http\Controllers\DataVisualizationController::class, 'getGdpTrend'])->name('api.visualization.gdp');
+    Route::get('/api/visualization/inflation',        [\App\Http\Controllers\DataVisualizationController::class, 'getInflationTrend'])->name('api.visualization.inflation');
+    Route::get('/api/visualization/currency',         [\App\Http\Controllers\DataVisualizationController::class, 'getCurrencyTrend'])->name('api.visualization.currency');
+    Route::get('/api/visualization/risk',             [\App\Http\Controllers\DataVisualizationController::class, 'getRiskTrend'])->name('api.visualization.risk');
+
     // ----- News Intelligence -----
     Route::get('/news',                 [NewsController::class, 'index'])->name('news');
+    Route::get('/news/{slug}',          [NewsController::class, 'show'])->name('news.show');
     Route::get('/api/news/refresh',     [NewsController::class, 'refresh'])->name('api.news.refresh');
 
     // ----- Ports Dashboard -----
@@ -106,6 +126,12 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/articles/{article}/edit',  [AdminController::class, 'articlesEdit'])->name('articles.edit');
     Route::put('/articles/{article}',       [AdminController::class, 'articlesUpdate'])->name('articles.update');
     Route::delete('/articles/{article}',    [AdminController::class, 'articlesDestroy'])->name('articles.destroy');
+
+    // ----- Contact Messages -----
+    Route::get('/contacts',                        [AdminController::class, 'contacts'])->name('contacts');
+    Route::get('/contacts/{contact}',              [AdminController::class, 'contactShow'])->name('contacts.show');
+    Route::delete('/contacts/{contact}',           [AdminController::class, 'contactDestroy'])->name('contacts.destroy');
+    Route::post('/contacts/{contact}/toggle-read', [AdminController::class, 'contactToggleRead'])->name('contacts.toggle-read');
 
     // ----- News Cache -----
     Route::get('/news-cache',               [AdminController::class, 'newsCache'])->name('news-cache');

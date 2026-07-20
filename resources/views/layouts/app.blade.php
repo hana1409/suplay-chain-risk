@@ -37,6 +37,28 @@
         'resources/js/app.js'
     ])
 
+    <!-- Pagination Icon Fix -->
+    <style>
+        /* Prevent large arrow icons in pagination */
+        .pagination .page-link::before,
+        .pagination .page-link::after {
+            content: none !important;
+            display: none !important;
+        }
+        .pagination .page-link {
+            background-image: none !important;
+            max-width: 60px !important;
+            max-height: 40px !important;
+            overflow: hidden !important;
+        }
+        .pagination .page-link svg,
+        .pagination .page-link i {
+            max-width: 16px !important;
+            max-height: 16px !important;
+            font-size: 16px !important;
+        }
+    </style>
+
 </head>
 
 <body>

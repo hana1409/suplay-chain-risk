@@ -89,7 +89,17 @@ class Country extends Model
 
     public function getFormattedPopulationAttribute(): string
     {
-        if (!$this->population) return 'N/A';
-        return number_format($this->population);
+        // Try from database first
+        if ($this->population && $this->population > 0) {
+            return number_format($this->population);
+        }
+        
+        // Try from economic cache (World Bank data)
+        $economic = $this->economicCache;
+        if ($economic && isset($economic->population) && $economic->population > 0) {
+            return number_format($economic->population);
+        }
+        
+        return 'N/A';
     }
 }

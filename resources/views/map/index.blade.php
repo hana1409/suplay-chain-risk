@@ -235,15 +235,16 @@
     100% { background-position: -200% center; }
 }
 
-/* ─── Leaflet popup override ─── */
+/* ─── Leaflet popup override (for Port popups only) ─── */
 .leaflet-popup-content-wrapper {
     background: #FFFFFF !important;
     border: 1px solid #E5E7EB !important;
-    border-radius: 14px !important;
-    box-shadow: 0 10px 40px rgba(15,118,110,0.12) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 8px 30px rgba(15,118,110,0.15) !important;
     padding: 0 !important;
     overflow: hidden;
     color: #1F2937;
+    max-width: 300px !important;
 }
 
 .leaflet-popup-tip {
@@ -253,288 +254,113 @@
 .leaflet-popup-content {
     margin: 0 !important;
     width: auto !important;
-    min-width: 280px;
+    min-width: 250px;
+    max-width: 300px;
 }
 
-/* Country popup */
-.cpop {
-    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
-    min-width: 280px;
-    max-width: 320px;
+.leaflet-popup {
+    pointer-events: auto !important;
 }
 
-.cpop-header {
-    padding: 14px 16px 12px;
-    background: linear-gradient(135deg, #F0FDF4, #DCFCE7);
-    border-bottom: 1px solid #E5E7EB;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+.leaflet-popup-close-button {
+    color: #6B7280 !important;
+    font-size: 18px !important;
+    padding: 4px 8px !important;
 }
 
-.cpop-flag {
-    width: 36px;
-    height: 26px;
-    border-radius: 4px;
-    object-fit: cover;
-    border: 1px solid rgba(0,0,0,0.08);
-}
-
-.cpop-name {
-    font-size: 15px;
-    font-weight: 700;
-    color: #1F2937;
-    flex: 1;
-}
-
-.cpop-badge {
-    font-size: 11px;
-    font-weight: 700;
-    padding: 3px 10px;
-    border-radius: 99px;
-    letter-spacing: 0.3px;
-}
-
-.cpop-body {
-    padding: 12px 16px;
-    background: #FFFFFF;
-}
-
-.cpop-weather-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 0;
-    border-bottom: 1px solid #F3F4F6;
-    margin-bottom: 10px;
-}
-
-.cpop-weather-icon {
-    width: 42px;
-    height: 42px;
-    object-fit: contain;
-    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.15));
-}
-
-.cpop-weather-main {
-    flex: 1;
-}
-
-.cpop-weather-cond {
-    font-size: 14px;
-    font-weight: 600;
-    color: #1F2937;
-}
-
-.cpop-weather-temp {
-    font-size: 20px;
-    font-weight: 700;
-    color: #D97706;
-    line-height: 1;
-    margin-top: 2px;
-}
-
-.cpop-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6px;
-    margin-bottom: 10px;
-}
-
-.cpop-item {
-    background: #F5F7F4;
-    border-radius: 8px;
-    padding: 8px 10px;
-    border: 1px solid #E5E7EB;
-}
-
-.cpop-item-label {
-    font-size: 10px;
-    color: #9CA3AF;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-weight: 600;
-    margin-bottom: 2px;
-}
-
-.cpop-item-value {
-    font-size: 13px;
-    font-weight: 600;
-    color: #374151;
-}
-
-.cpop-score-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: #F0FDF4;
-    border-radius: 10px;
-    padding: 10px 12px;
-    margin-bottom: 10px;
-    border: 1px solid #D1FAE5;
-}
-
-.cpop-score-label {
-    font-size: 11px;
-    color: #6B7280;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-weight: 600;
-}
-
-.cpop-score-val {
-    font-size: 22px;
-    font-weight: 800;
-    color: #1F2937;
-    line-height: 1;
-}
-
-.cpop-score-bar-wrap {
-    height: 4px;
-    background: rgba(15,118,110,0.12);
-    border-radius: 99px;
-    margin-top: 6px;
-    overflow: hidden;
-    width: 80px;
-}
-
-.cpop-score-bar {
-    height: 100%;
-    border-radius: 99px;
-    transition: width 0.4s ease;
-}
-
-.cpop-actions {
-    display: flex;
-    gap: 8px;
-}
-
-.cpop-btn {
-    flex: 1;
-    padding: 9px 0;
-    border-radius: 9px;
-    font-size: 13px;
-    font-weight: 600;
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
-    border: none;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-}
-
-.cpop-btn-primary {
-    background: linear-gradient(135deg, #0F766E, #065F46);
-    color: white;
-    box-shadow: 0 4px 12px rgba(15,118,110,0.25);
-}
-
-.cpop-btn-primary:hover {
-    background: linear-gradient(135deg, #0D9488, #0F766E);
-    color: white;
-    transform: translateY(-1px);
+.leaflet-popup-close-button:hover {
+    color: #1F2937 !important;
 }
 
 /* Port popup */
 .ppop {
     font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
-    min-width: 270px;
-    max-width: 310px;
+    min-width: 250px;
+    max-width: 290px;
 }
 
 .ppop-header {
-    padding: 12px 16px 10px;
+    padding: 10px 14px 8px;
     background: linear-gradient(135deg, #EFF6FF, #DBEAFE);
     border-bottom: 1px solid #E5E7EB;
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-}
-
-.ppop-anchor-icon {
-    width: 32px;
-    height: 32px;
-    object-fit: contain;
-    flex-shrink: 0;
-    margin-top: 2px;
 }
 
 .ppop-title {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
     color: #1E3A5F;
     line-height: 1.3;
 }
 
 .ppop-subtitle {
-    font-size: 12px;
+    font-size: 11px;
     color: #2563EB;
     margin-top: 2px;
     font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
 
 .ppop-body {
-    padding: 12px 16px;
+    padding: 10px 14px;
     background: #FFFFFF;
 }
 
 .ppop-type-badge {
     display: inline-flex;
     align-items: center;
-    gap: 5px;
+    gap: 4px;
     background: rgba(37,99,235,0.08);
     border: 1px solid rgba(37,99,235,0.20);
     color: #2563EB;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 600;
     padding: 3px 10px;
     border-radius: 99px;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 
 .ppop-coords {
-    font-size: 11px;
+    font-size: 10px;
     color: #9CA3AF;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     font-family: 'Courier New', monospace;
 }
 
 .ppop-weather-section {
     background: #F5F7F4;
-    border-radius: 10px;
-    padding: 10px 12px;
+    border-radius: 8px;
+    padding: 8px 10px;
     border: 1px solid #E5E7EB;
 }
 
 .ppop-weather-title {
-    font-size: 10px;
+    font-size: 9px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     color: #9CA3AF;
     font-weight: 600;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
 .ppop-weather-main-row {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 8px;
+    gap: 8px;
+    margin-bottom: 6px;
 }
 
 .ppop-weather-img {
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
     object-fit: contain;
 }
 
 .ppop-weather-stats {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: 6px;
+    gap: 5px;
 }
 
 .ppop-stat {
@@ -542,14 +368,14 @@
 }
 
 .ppop-stat-val {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 700;
     color: #1F2937;
     display: block;
 }
 
 .ppop-stat-lbl {
-    font-size: 10px;
+    font-size: 9px;
     color: #9CA3AF;
     display: block;
     margin-top: 1px;
@@ -558,8 +384,8 @@
 .ppop-loading {
     text-align: center;
     color: #9CA3AF;
-    font-size: 13px;
-    padding: 10px 0;
+    font-size: 12px;
+    padding: 8px 0;
 }
 
 /* Weather icon marker custom */
@@ -575,12 +401,17 @@
     justify-content: center;
     width: 100%;
     height: 100%;
-    transition: transform 0.15s ease;
+    transition: transform 0.2s ease;
     cursor: pointer;
 }
 
 .weather-marker-inner:hover {
-    transform: scale(1.2);
+    transform: scale(1.3);
+}
+
+/* Port circle marker hover */
+.leaflet-interactive:hover {
+    cursor: pointer;
 }
 
 /* Legend */
@@ -589,39 +420,42 @@
     bottom: 24px;
     right: 12px;
     z-index: 900;
-    background: rgba(255,255,255,0.97);
+    background: rgba(255,255,255,0.98);
     border: 1px solid #E5E7EB;
     border-radius: 12px;
-    padding: 12px 14px;
+    padding: 10px 12px;
     backdrop-filter: blur(12px);
     font-size: 12px;
     color: var(--text-secondary);
-    min-width: 150px;
-    box-shadow: 0 4px 16px rgba(15,118,110,0.10);
+    min-width: 180px;
+    max-width: 220px;
+    max-height: calc(100% - 48px);
+    overflow-y: auto;
+    box-shadow: 0 4px 20px rgba(15,118,110,0.12);
 }
 
 .map-legend-title {
-    font-size: 10px;
+    font-size: 9px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     color: var(--text-muted);
     font-weight: 700;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
 .legend-row {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-bottom: 5px;
-    font-size: 11px;
+    gap: 6px;
+    margin-bottom: 4px;
+    font-size: 10px;
     font-weight: 500;
     color: #374151;
 }
 
 .legend-dot {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     flex-shrink: 0;
 }
@@ -629,7 +463,7 @@
 .legend-divider {
     height: 1px;
     background: #E5E7EB;
-    margin: 8px 0;
+    margin: 6px 0;
 }
 
 /* Responsive */
@@ -637,7 +471,358 @@
     .map-filter-bar { flex-wrap: wrap; gap: 8px; }
     .map-stat-pills { margin-left: 0; }
     .map-header { flex-direction: column; align-items: flex-start; gap: 10px; }
-    .leaflet-popup-content { min-width: 260px !important; }
+    .leaflet-popup-content { min-width: 240px !important; max-width: 280px !important; }
+    .weather-summary-panel { width: 100% !important; right: 0 !important; }
+}
+
+/* Weather Summary Panel */
+.weather-summary-panel {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 320px;
+    max-height: calc(100% - 24px);
+    background: rgba(255, 255, 255, 0.98);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(15, 118, 110, 0.15);
+    backdrop-filter: blur(12px);
+    z-index: 900;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    animation: slideInRight 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.weather-summary-header {
+    padding: 16px 18px;
+    background: linear-gradient(135deg, #F0FDF4, #DCFCE7);
+    border-bottom: 1px solid #E5E7EB;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.weather-summary-header h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.weather-summary-header h3 i {
+    color: var(--accent);
+    font-size: 16px;
+}
+
+.weather-summary-body {
+    padding: 16px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.weather-summary-country {
+    margin-bottom: 16px;
+}
+
+.weather-summary-country-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.weather-summary-flag {
+    width: 32px;
+    height: 24px;
+    border-radius: 4px;
+    object-fit: cover;
+    border: 1px solid rgba(0,0,0,0.08);
+}
+
+.weather-summary-country-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+    flex: 1;
+}
+
+.weather-summary-main {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: var(--bg-base);
+    border-radius: 10px;
+    margin-bottom: 12px;
+}
+
+.weather-summary-icon {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.15));
+}
+
+.weather-summary-temp {
+    flex: 1;
+}
+
+.weather-summary-condition {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+}
+
+.weather-summary-temperature {
+    font-size: 28px;
+    font-weight: 800;
+    color: #D97706;
+    line-height: 1;
+}
+
+.weather-summary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.weather-summary-item {
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+}
+
+.weather-summary-item-icon {
+    font-size: 14px;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 4px;
+}
+
+.weather-summary-item-value {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+    display: block;
+    margin-bottom: 2px;
+}
+
+.weather-summary-item-label {
+    font-size: 10px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+
+.weather-alerts {
+    background: #FEF3C7;
+    border: 1px solid #FCD34D;
+    border-radius: 10px;
+    padding: 12px;
+}
+
+.weather-alerts-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #92400E;
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.weather-alert-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    background: #FFFFFF;
+    border-radius: 6px;
+    margin-bottom: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #92400E;
+}
+
+.weather-alert-item:last-child {
+    margin-bottom: 0;
+}
+
+.weather-alert-icon {
+    font-size: 14px;
+}
+
+.weather-alert-critical {
+    background: #FEE2E2;
+    border: 1px solid #FCA5A5;
+    color: #991B1B;
+}
+
+.weather-alert-high {
+    background: #FED7AA;
+    border: 1px solid #FDBA74;
+    color: #9A3412;
+}
+
+.weather-alert-medium {
+    background: #FEF3C7;
+    border: 1px solid #FDE047;
+    color: #713F12;
+}
+
+.weather-no-alerts {
+    text-align: center;
+    padding: 12px;
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.weather-no-alerts i {
+    font-size: 24px;
+    display: block;
+    margin-bottom: 8px;
+    opacity: 0.3;
+}
+
+.weather-summary-risk {
+    background: var(--bg-base);
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 12px;
+}
+
+.weather-summary-risk-header {
+    margin-bottom: 10px;
+}
+
+.weather-summary-risk-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+.weather-summary-actions {
+    margin-top: 4px;
+}
+
+.weather-summary-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+}
+
+.weather-summary-btn-primary {
+    background: linear-gradient(135deg, #0F766E, #065F46);
+    color: white;
+    box-shadow: 0 3px 12px rgba(15, 118, 110, 0.25);
+}
+
+.weather-summary-btn-primary:hover {
+    background: linear-gradient(135deg, #0D9488, #0F766E);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 5px 18px rgba(15, 118, 110, 0.35);
+}
+
+/* Active marker styling */
+.weather-marker-inner {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .map-filter-bar { flex-wrap: wrap; gap: 8px; }
+    .map-stat-pills { margin-left: 0; }
+    .map-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .leaflet-popup-content { min-width: 240px !important; max-width: 280px !important; }
+    .weather-summary-panel { 
+        width: 100% !important; 
+        right: 0 !important; 
+        border-radius: 0;
+        top: 0;
+        max-height: 100%;
+    }
+}
+
+/* Leaflet container smooth drag */
+.leaflet-container {
+    cursor: grab;
+}
+
+.leaflet-container:active {
+    cursor: grabbing;
+}
+
+.leaflet-dragging .leaflet-container {
+    cursor: grabbing !important;
+}
+
+/* Smooth popup animation */
+@keyframes popupFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.leaflet-popup {
+    animation: popupFadeIn 0.2s ease-out;
+}
+
+/* Marker smooth transitions */
+.leaflet-marker-icon {
+    transition: all 0.2s ease;
+}
+
+/* Circle marker pulse effect on click */
+@keyframes circlePulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(15, 118, 110, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(15, 118, 110, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(15, 118, 110, 0);
+    }
 }
 </style>
 @endpush
@@ -690,6 +875,22 @@
         </div>
     </div>
 
+    {{-- ═══ WEATHER SUMMARY PANEL ═══ --}}
+    <div class="weather-summary-panel" id="weatherSummaryPanel" style="display:none;">
+        <div class="weather-summary-header">
+            <h3><i class="bi bi-cloud-sun"></i> Weather Summary</h3>
+            <button onclick="closeWeatherSummary()" style="background:none;border:none;cursor:pointer;color:var(--text-muted);padding:4px;">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+        <div class="weather-summary-body" id="weatherSummaryBody">
+            <div style="text-align:center;padding:40px 20px;color:var(--text-muted);">
+                <i class="bi bi-cursor" style="font-size:32px;display:block;margin-bottom:12px;opacity:0.3;"></i>
+                <p style="font-size:13px;">Click on a country marker to view detailed weather information</p>
+            </div>
+        </div>
+    </div>
+
     {{-- ═══ MAP CANVAS ═══ --}}
     <div class="map-canvas-wrap">
 
@@ -711,22 +912,35 @@
         {{-- Risk Legend --}}
         <div class="map-legend" id="mapLegend" style="display:none;">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-                <div class="map-legend-title" style="margin-bottom:0;">Legend</div>
+                <div class="map-legend-title" style="margin-bottom:0;">Map Legend</div>
                 <button onclick="toggleLegend()" style="background:none;border:none;cursor:pointer;color:var(--text-muted);padding:0;display:flex;"><i class="bi bi-x-lg" style="font-size:14px;"></i></button>
             </div>
+            
+            <div class="map-legend-title">Weather Conditions</div>
+            <div class="legend-row" style="gap:8px;"><span style="font-size:16px;">☀️</span> Clear Sky</div>
+            <div class="legend-row" style="gap:8px;"><span style="font-size:16px;">🌤️</span> Partly Cloudy</div>
+            <div class="legend-row" style="gap:8px;"><span style="font-size:16px;">☁️</span> Cloudy</div>
+            <div class="legend-row" style="gap:8px;"><span style="font-size:16px;">🌧️</span> Rain / Drizzle</div>
+            <div class="legend-row" style="gap:8px;"><span style="font-size:16px;">⛈️</span> Thunderstorm</div>
+            <div class="legend-row" style="gap:8px;"><span style="font-size:16px;">❄️</span> Snow</div>
+            <div class="legend-row" style="gap:8px;"><span style="font-size:16px;">💨</span> Strong Wind</div>
+            <div class="legend-row" style="gap:8px;"><span style="font-size:16px;">🌫️</span> Fog / Mist</div>
+            
+            <div class="legend-divider"></div>
+            
             <div class="map-legend-title">Risk Level</div>
             <div class="legend-row"><span class="legend-dot" style="background:#10B981;"></span> Low</div>
             <div class="legend-row"><span class="legend-dot" style="background:#F59E0B;"></span> Medium</div>
             <div class="legend-row"><span class="legend-dot" style="background:#F97316;"></span> High</div>
             <div class="legend-row"><span class="legend-dot" style="background:#EF4444;"></span> Critical</div>
+            
             <div class="legend-divider"></div>
-            <div class="map-legend-title">Markers</div>
-            <div class="legend-row" style="gap:6px;">
-                <span style="font-size:16px;">☀️</span> Weather
-            </div>
-            <div class="legend-row" style="gap:6px;">
-                <span style="font-size:16px;">⚓</span> Port
-            </div>
+            
+            <div class="map-legend-title">Port Status</div>
+            <div class="legend-row"><span class="legend-dot" style="background:#10B981;border:2px solid #FFF;"></span> Normal</div>
+            <div class="legend-row"><span class="legend-dot" style="background:#F59E0B;border:2px solid #FFF;"></span> Busy</div>
+            <div class="legend-row"><span class="legend-dot" style="background:#F97316;border:2px solid #FFF;"></span> Congested</div>
+            <div class="legend-row"><span class="legend-dot" style="background:#EF4444;border:2px solid #FFF;"></span> High Risk</div>
         </div>
 
     </div>
@@ -759,6 +973,17 @@ const map = L.map('globalMap', {
     maxZoom: 16,
     zoomControl: false,
     attributionControl: true,
+    dragging: true,
+    touchZoom: true,
+    scrollWheelZoom: true,
+    doubleClickZoom: true,
+    boxZoom: true,
+    keyboard: true,
+    tap: true,
+    zoomAnimation: true,
+    zoomAnimationThreshold: 4,
+    fadeAnimation: true,
+    markerZoomAnimation: true
 });
 
 // Light tile layer
@@ -790,7 +1015,7 @@ const WEATHER_EMOJI_MAP = {
     'wind': '💨'
 };
 
-function makeWeatherIcon(iconName, size = 22) {
+function makeWeatherIcon(iconName, size = 14) {
     const emoji = WEATHER_EMOJI_MAP[iconName] || '🌤️';
     return L.divIcon({
         html: `<div class="weather-marker-inner" style="font-size:${size}px; line-height:1;">${emoji}</div>`,
@@ -801,14 +1026,14 @@ function makeWeatherIcon(iconName, size = 22) {
     });
 }
 
-function makePortIcon() {
-    return L.divIcon({
-        html: `<div class="weather-marker-inner" style="font-size:20px; line-height:1;">⚓</div>`,
-        className: 'weather-marker-icon',
-        iconSize: [20, 20],
-        iconAnchor: [10, 10],
-        popupAnchor: [0, -10]
-    });
+function makePortCircle(riskLevel = 'Normal') {
+    const colorMap = {
+        'Normal': '#10B981',      // Hijau
+        'Busy': '#F59E0B',        // Kuning
+        'Congested': '#F97316',   // Oranye
+        'High Risk': '#EF4444'    // Merah
+    };
+    return colorMap[riskLevel] || '#10B981';
 }
 
 // ── Risk badge helper ──
@@ -823,123 +1048,281 @@ function riskBadgeStyle(level) {
 }
 
 // ============================================================
-//  COUNTRY WEATHER MARKERS
+//  WEATHER SUMMARY PANEL
 // ============================================================
 
-function buildCountryPopupSkeleton(code) {
-    return `
-    <div class="cpop">
-      <div class="cpop-header">
-        <img class="cpop-flag" id="cpop-flag-${code}" src="" alt="">
-        <div class="cpop-name" id="cpop-name-${code}">Loading…</div>
-        <span class="cpop-badge" id="cpop-badge-${code}">—</span>
-      </div>
-      <div class="cpop-body" id="cpop-body-${code}">
-        <div style="text-align:center;padding:20px 0;color:#64748B;">
-          <div class="intel-spinner" style="margin:0 auto 8px;"></div>
-          <div style="font-size:12px;">Fetching data…</div>
-        </div>
-      </div>
-    </div>`;
-}
-
-function fillCountryPopup(code, data) {
-    const s = riskBadgeStyle(data.risk_level);
-    // Header
-    const flagEl  = document.getElementById('cpop-flag-' + code);
-    const nameEl  = document.getElementById('cpop-name-' + code);
-    const badgeEl = document.getElementById('cpop-badge-' + code);
-    const bodyEl  = document.getElementById('cpop-body-' + code);
-
-    if (flagEl)  flagEl.src = data.flag;
-    if (nameEl)  nameEl.textContent = data.name;
-    if (badgeEl) {
-        badgeEl.textContent = data.risk_level;
-        badgeEl.style.cssText = `background:${s.bg};border:1px solid ${s.border};color:${s.color};`;
-    }
-
-    if (bodyEl) {
-        bodyEl.innerHTML = `
-        <div class="cpop-weather-row">
-            <img class="cpop-weather-icon"
-                 src="${WEATHER_ICON_BASE}${data.weather_icon}.svg"
-                 alt="${data.weather_condition}"
-                 onerror="this.src='${WEATHER_ICON_BASE}partly-cloudy.svg'">
-            <div class="cpop-weather-main">
-                <div class="cpop-weather-cond">${data.weather_condition}</div>
-                <div class="cpop-weather-temp">${data.temperature}</div>
+function updateWeatherSummary(data) {
+    const panel = document.getElementById('weatherSummaryPanel');
+    const body = document.getElementById('weatherSummaryBody');
+    
+    if (!panel || !body) return;
+    
+    // Show panel
+    panel.style.display = 'flex';
+    
+    // Generate weather alerts
+    const alerts = generateWeatherAlerts(data);
+    
+    // Parse numeric values for better display
+    const tempValue = parseFloat(data.temperature);
+    const windValue = parseFloat(data.wind_speed);
+    const rainValue = parseFloat(data.rainfall);
+    
+    // Build humidity and pressure from additional data (if available)
+    const humidity = data.humidity || 'N/A';
+    const pressure = data.pressure || 'N/A';
+    
+    // Risk score styling
+    const riskStyle = riskBadgeStyle(data.risk_level);
+    
+    body.innerHTML = `
+        <div class="weather-summary-country">
+            <div class="weather-summary-country-header">
+                <img src="${data.flag}" alt="${data.name}" class="weather-summary-flag">
+                <div class="weather-summary-country-name">${data.name}</div>
             </div>
-        </div>
-        <div class="cpop-grid">
-            <div class="cpop-item">
-                <div class="cpop-item-label">Wind</div>
-                <div class="cpop-item-value">${data.wind_speed}</div>
-            </div>
-            <div class="cpop-item">
-                <div class="cpop-item-label">Rainfall</div>
-                <div class="cpop-item-value">${data.rainfall}</div>
-            </div>
-            <div class="cpop-item">
-                <div class="cpop-item-label">Ports</div>
-                <div class="cpop-item-value">${data.port_count ?? '—'}</div>
-            </div>
-            <div class="cpop-item">
-                <div class="cpop-item-label">Region</div>
-                <div class="cpop-item-value" style="font-size:11px;">${data.region || '—'}</div>
-            </div>
-        </div>
-        <div class="cpop-score-row">
-            <div>
-                <div class="cpop-score-label">Risk Score</div>
-                <div class="cpop-score-val" style="color:${s.color};">${data.risk_score}</div>
-                <div class="cpop-score-bar-wrap">
-                    <div class="cpop-score-bar" style="width:${Math.min(data.risk_score, 100)}%;background:${s.color};"></div>
+            
+            <div class="weather-summary-main">
+                <img src="${WEATHER_ICON_BASE}${data.weather_icon}.svg" 
+                     alt="${data.weather_condition}" 
+                     class="weather-summary-icon"
+                     onerror="this.src='${WEATHER_ICON_BASE}partly-cloudy.svg'">
+                <div class="weather-summary-temp">
+                    <div class="weather-summary-condition">${data.weather_condition}</div>
+                    <div class="weather-summary-temperature">${data.temperature}</div>
                 </div>
             </div>
-            <div style="text-align:right;">
-                <div class="cpop-score-label">Risk Level</div>
-                <span class="cpop-badge" style="background:${s.bg};border:1px solid ${s.border};color:${s.color};font-size:13px;padding:5px 14px;border-radius:99px;font-weight:700;">
-                    ${data.risk_level}
-                </span>
+            
+            <div class="weather-summary-grid">
+                <div class="weather-summary-item">
+                    <i class="bi bi-wind weather-summary-item-icon"></i>
+                    <span class="weather-summary-item-value">${data.wind_speed}</span>
+                    <span class="weather-summary-item-label">Wind Speed</span>
+                </div>
+                <div class="weather-summary-item">
+                    <i class="bi bi-droplet-fill weather-summary-item-icon"></i>
+                    <span class="weather-summary-item-value">${data.rainfall}</span>
+                    <span class="weather-summary-item-label">Rainfall</span>
+                </div>
+                <div class="weather-summary-item">
+                    <i class="bi bi-moisture weather-summary-item-icon"></i>
+                    <span class="weather-summary-item-value">${humidity}</span>
+                    <span class="weather-summary-item-label">Humidity</span>
+                </div>
+                <div class="weather-summary-item">
+                    <i class="bi bi-speedometer weather-summary-item-icon"></i>
+                    <span class="weather-summary-item-value">${pressure}</span>
+                    <span class="weather-summary-item-label">Pressure</span>
+                </div>
+            </div>
+            
+            <div class="weather-summary-risk">
+                <div class="weather-summary-risk-header">
+                    <span style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;font-weight:600;">Risk Assessment</span>
+                </div>
+                <div class="weather-summary-risk-content">
+                    <div>
+                        <div style="font-size:10px;color:var(--text-muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px;font-weight:600;">Risk Score</div>
+                        <div style="font-size:24px;font-weight:800;color:${riskStyle.color};line-height:1;">${data.risk_score}</div>
+                        <div style="height:4px;background:rgba(0,0,0,0.05);border-radius:99px;margin-top:6px;overflow:hidden;width:80px;">
+                            <div style="height:100%;width:${Math.min(data.risk_score, 100)}%;background:${riskStyle.color};border-radius:99px;transition:width 0.4s;"></div>
+                        </div>
+                    </div>
+                    <div style="text-align:right;">
+                        <div style="font-size:10px;color:var(--text-muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px;font-weight:600;">Risk Level</div>
+                        <span style="display:inline-block;background:${riskStyle.bg};border:1px solid ${riskStyle.border};color:${riskStyle.color};font-size:14px;padding:6px 16px;border-radius:99px;font-weight:700;">
+                            ${data.risk_level}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+            ${alerts.length > 0 ? `
+                <div class="weather-alerts">
+                    <div class="weather-alerts-title">
+                        <i class="bi bi-exclamation-triangle-fill"></i>
+                        Weather Alerts
+                    </div>
+                    ${alerts.map(alert => `
+                        <div class="weather-alert-item ${alert.class}">
+                            <span class="weather-alert-icon">${alert.icon}</span>
+                            <span>${alert.message}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            ` : `
+                <div class="weather-no-alerts">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <p>No weather alerts at this time</p>
+                </div>
+            `}
+            
+            <div class="weather-summary-actions">
+                <a href="${data.detail_url}" class="weather-summary-btn weather-summary-btn-primary">
+                    <i class="bi bi-arrow-up-right-square"></i> View Full Details
+                </a>
             </div>
         </div>
-        <div class="cpop-actions">
-            <a href="${data.detail_url}" class="cpop-btn cpop-btn-primary">
-                <i class="bi bi-arrow-up-right-square"></i> View Detail
-            </a>
-        </div>`;
-    }
+    `;
 }
+
+function generateWeatherAlerts(data) {
+    const alerts = [];
+    
+    // Parse values
+    const windValue = parseFloat(data.wind_speed);
+    const rainValue = parseFloat(data.rainfall);
+    const condition = (data.weather_condition || '').toLowerCase();
+    
+    // Storm/Thunderstorm alert
+    if (condition.includes('storm') || condition.includes('thunder')) {
+        alerts.push({
+            icon: '⛈️',
+            message: 'Thunderstorm detected',
+            class: 'weather-alert-critical'
+        });
+    }
+    
+    // Heavy rain alert
+    if (rainValue > 50) {
+        alerts.push({
+            icon: '🌧️',
+            message: 'Heavy rainfall: ' + rainValue.toFixed(1) + ' mm',
+            class: 'weather-alert-critical'
+        });
+    } else if (rainValue > 20) {
+        alerts.push({
+            icon: '🌧️',
+            message: 'Moderate rainfall: ' + rainValue.toFixed(1) + ' mm',
+            class: 'weather-alert-high'
+        });
+    } else if (rainValue > 5) {
+        alerts.push({
+            icon: '🌧️',
+            message: 'Light rain: ' + rainValue.toFixed(1) + ' mm',
+            class: 'weather-alert-medium'
+        });
+    }
+    
+    // Strong wind alert
+    if (windValue > 75) {
+        alerts.push({
+            icon: '💨',
+            message: 'Very strong winds: ' + windValue.toFixed(1) + ' km/h',
+            class: 'weather-alert-critical'
+        });
+    } else if (windValue > 50) {
+        alerts.push({
+            icon: '💨',
+            message: 'Strong winds: ' + windValue.toFixed(1) + ' km/h',
+            class: 'weather-alert-high'
+        });
+    } else if (windValue > 30) {
+        alerts.push({
+            icon: '💨',
+            message: 'Moderate winds: ' + windValue.toFixed(1) + ' km/h',
+            class: 'weather-alert-medium'
+        });
+    }
+    
+    // Snow alert
+    if (condition.includes('snow') || condition.includes('blizzard')) {
+        alerts.push({
+            icon: '❄️',
+            message: 'Snow conditions detected',
+            class: 'weather-alert-high'
+        });
+    }
+    
+    // Fog alert
+    if (condition.includes('fog') || condition.includes('mist')) {
+        alerts.push({
+            icon: '🌫️',
+            message: 'Low visibility due to fog',
+            class: 'weather-alert-medium'
+        });
+    }
+    
+    return alerts;
+}
+
+function closeWeatherSummary() {
+    const panel = document.getElementById('weatherSummaryPanel');
+    if (panel) panel.style.display = 'none';
+}
+
+// ============================================================
+//  COUNTRY WEATHER MARKERS
+// ============================================================
 
 function loadCountryMarkers(countries) {
     weatherLayer.clearLayers();
     document.getElementById('pillCountryCount').textContent = countries.length;
 
     countries.forEach(c => {
+        // Validasi koordinat
+        if (!c.lat || !c.lng || isNaN(c.lat) || isNaN(c.lng)) {
+            console.warn(`Invalid coordinates for ${c.name}:`, c.lat, c.lng);
+            return;
+        }
+
+        // Ensure lat/lng are numbers
+        const lat = parseFloat(c.lat);
+        const lng = parseFloat(c.lng);
+
+        // Validate coordinate range
+        if (lat < -90 || lat > 90 || lng < -180 || lng > 180) {
+            console.warn(`Out of range coordinates for ${c.name}:`, lat, lng);
+            return;
+        }
+
         const icon   = makeWeatherIcon(c.weather_icon || 'partly-cloudy');
-        const marker = L.marker([c.lat, c.lng], { icon });
+        const marker = L.marker([lat, lng], { 
+            icon,
+            riseOnHover: true,
+            title: c.name // Tooltip saat hover
+        });
 
-        // Bind a skeleton popup first
-        const popup = L.popup({
-            maxWidth: 320,
-            className: 'map-popup-anim',
-        }).setContent(buildCountryPopupSkeleton(c.code));
+        // Store country code for fetching full data
+        marker.countryCode = c.code;
 
-        marker.bindPopup(popup);
+        // On click, fetch data and show in Weather Summary Panel (no popup)
+        marker.on('click', function() {
+            // Remove previous active marker styling
+            document.querySelectorAll('.weather-marker-inner').forEach(el => {
+                el.style.transform = '';
+                el.style.filter = '';
+            });
 
-        // On popup open, fetch full data
-        marker.on('popupopen', () => {
+            // Add active styling to clicked marker
+            const markerElement = this.getElement();
+            if (markerElement) {
+                const innerElement = markerElement.querySelector('.weather-marker-inner');
+                if (innerElement) {
+                    innerElement.style.transform = 'scale(1.5)';
+                    innerElement.style.filter = 'drop-shadow(0 0 8px rgba(15, 118, 110, 0.6))';
+                }
+            }
+
+            // Fetch full country data
             fetch(API_COUNTRY_POPUP(c.code))
                 .then(r => r.json())
-                .then(data => fillCountryPopup(c.code, data))
-                .catch(() => {
-                    const bodyEl = document.getElementById('cpop-body-' + c.code);
-                    if (bodyEl) bodyEl.innerHTML = `<div style="padding:16px;color:#EF4444;font-size:13px;">Failed to load data.</div>`;
+                .then(data => {
+                    updateWeatherSummary(data);
+                    // Auto-show panel if hidden
+                    const panel = document.getElementById('weatherSummaryPanel');
+                    if (panel) panel.style.display = 'flex';
+                })
+                .catch(err => {
+                    console.error('Failed to fetch country data:', err);
+                    showToast('Failed to load country data', 'error');
                 });
         });
 
         weatherLayer.addLayer(marker);
     });
+
+    console.log(`✓ Loaded ${countries.length} country weather markers`);
 }
 
 // ============================================================
@@ -950,15 +1333,14 @@ function buildPortPopupSkeleton(port) {
     return `
     <div class="ppop">
       <div class="ppop-header">
-        <img class="ppop-anchor-icon" src="${WEATHER_ICON_BASE}port.svg" alt="Port">
-        <div>
+        <div style="width:100%;">
           <div class="ppop-title">${port.name}</div>
-          <div class="ppop-subtitle">${port.country}</div>
+          <div class="ppop-subtitle"><i class="bi bi-geo-alt-fill"></i> ${port.country}</div>
         </div>
       </div>
       <div class="ppop-body">
-        <span class="ppop-type-badge"><i class="bi bi-anchor"></i>${port.type}</span>
-        <div class="ppop-coords">${port.lat.toFixed(4)}°, ${port.lng.toFixed(4)}°</div>
+        <span class="ppop-type-badge"><i class="bi bi-diagram-3"></i> ${port.type}</span>
+        <div class="ppop-coords"><i class="bi bi-pin-map"></i> ${port.lat.toFixed(4)}°, ${port.lng.toFixed(4)}°</div>
         <div class="ppop-weather-section" id="ppop-weather-${port.id}">
           <div class="ppop-loading">
             <div class="intel-spinner" style="margin:0 auto 6px;width:16px;height:16px;border-width:2px;"></div>
@@ -973,28 +1355,28 @@ function fillPortWeather(portId, data) {
     const el = document.getElementById('ppop-weather-' + portId);
     if (!el) return;
     el.innerHTML = `
-      <div class="ppop-weather-title">Current Weather at Port</div>
+      <div class="ppop-weather-title"><i class="bi bi-cloud-sun"></i> Current Weather at Port</div>
       <div class="ppop-weather-main-row">
         <img class="ppop-weather-img"
              src="${WEATHER_ICON_BASE}${data.icon}.svg"
              alt="${data.condition}"
              onerror="this.src='${WEATHER_ICON_BASE}partly-cloudy.svg'">
         <div>
-          <div style="font-size:14px;font-weight:700;color:#E2E8F0;">${data.condition}</div>
-          <div style="font-size:18px;font-weight:800;color:#FDE68A;">${data.temperature}</div>
+          <div style="font-size:12px;font-weight:700;color:#1F2937;">${data.condition}</div>
+          <div style="font-size:16px;font-weight:800;color:#F59E0B;">${data.temperature}</div>
         </div>
       </div>
       <div class="ppop-weather-stats">
         <div class="ppop-stat">
-          <span class="ppop-stat-val">${data.wind_speed}</span>
+          <span class="ppop-stat-val"><i class="bi bi-wind" style="font-size:10px;color:#64748B;"></i> ${data.wind_speed}</span>
           <span class="ppop-stat-lbl">Wind</span>
         </div>
         <div class="ppop-stat">
-          <span class="ppop-stat-val">${data.rainfall}</span>
+          <span class="ppop-stat-val"><i class="bi bi-droplet" style="font-size:10px;color:#64748B;"></i> ${data.rainfall}</span>
           <span class="ppop-stat-lbl">Rain</span>
         </div>
         <div class="ppop-stat">
-          <span class="ppop-stat-val">${data.humidity}</span>
+          <span class="ppop-stat-val"><i class="bi bi-moisture" style="font-size:10px;color:#64748B;"></i> ${data.humidity}</span>
           <span class="ppop-stat-lbl">Humidity</span>
         </div>
       </div>`;
@@ -1002,18 +1384,60 @@ function fillPortWeather(portId, data) {
 
 function loadPortMarkers(ports) {
     portLayer.clearLayers();
-    const portIcon = makePortIcon();
 
     ports.forEach(port => {
-        const marker = L.marker([port.lat, port.lng], {
-            icon: portIcon,
-            riseOnHover: true,
+        // Validasi koordinat
+        if (!port.lat || !port.lng || isNaN(port.lat) || isNaN(port.lng)) {
+            console.warn(`Invalid coordinates for ${port.name}:`, port.lat, port.lng);
+            return;
+        }
+
+        // Ensure lat/lng are numbers
+        const lat = parseFloat(port.lat);
+        const lng = parseFloat(port.lng);
+
+        // Validate coordinate range
+        if (lat < -90 || lat > 90 || lng < -180 || lng > 180) {
+            console.warn(`Out of range coordinates for ${port.name}:`, lat, lng);
+            return;
+        }
+
+        const portColor = makePortCircle(port.status || 'Normal');
+        
+        // Gunakan CircleMarker dengan koordinat yang tepat
+        const marker = L.circleMarker([lat, lng], {
+            radius: 7,
+            fillColor: portColor,
+            color: '#FFFFFF',
+            weight: 2,
+            opacity: 1,
+            fillOpacity: 0.9,
+            title: port.name // Tooltip
         });
 
-        const popup = L.popup({ maxWidth: 310 })
-            .setContent(buildPortPopupSkeleton(port));
+        const popup = L.popup({ 
+            maxWidth: 310,
+            closeButton: true,
+            autoClose: true,
+            closeOnClick: false
+        }).setContent(buildPortPopupSkeleton(port));
 
         marker.bindPopup(popup);
+
+        // Hover effect
+        marker.on('mouseover', function() {
+            this.setStyle({
+                radius: 9,
+                weight: 3
+            });
+        });
+
+        marker.on('mouseout', function() {
+            this.setStyle({
+                radius: 7,
+                weight: 2
+            });
+        });
 
         marker.on('popupopen', () => {
             fetch(API_PORT_WEATHER(port.id))
@@ -1027,6 +1451,8 @@ function loadPortMarkers(ports) {
 
         portLayer.addLayer(marker);
     });
+
+    console.log(`✓ Loaded ${ports.length} port markers`);
 }
 
 // ============================================================
@@ -1088,12 +1514,24 @@ async function initMap() {
         setLoadingText('Loading country weather data…');
         const countriesRes = await fetch(API_COUNTRIES);
         const countries    = await countriesRes.json();
+        
+        console.log('📍 Country data received:', countries.length, 'countries');
+        if (countries.length > 0) {
+            console.log('Sample country:', countries[0]);
+        }
+        
         loadCountryMarkers(countries);
 
         // 2. Load port markers
         setLoadingText('Loading port markers…');
         const portsRes = await fetch(API_PORTS);
         const ports    = await portsRes.json();
+        
+        console.log('⚓ Port data received:', ports.length, 'ports');
+        if (ports.length > 0) {
+            console.log('Sample port:', ports[0]);
+        }
+        
         loadPortMarkers(ports);
 
         // 3. Hide loading, show legend toggle

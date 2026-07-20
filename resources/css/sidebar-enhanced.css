@@ -1,0 +1,296 @@
+/* =============================================
+   SIDEBAR ENHANCEMENT
+   Professional collapsible & scrollable sidebar
+   ============================================= */
+
+/* ===== SIDEBAR BASE ===== */
+.sidebar {
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Pastikan sidebar menggunakan flex layout yang benar */
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100vh !important;
+    overflow: hidden !important;
+}
+
+/* ===== TOGGLE BUTTON ===== */
+.sidebar-toggle-btn {
+    position: absolute;
+    top: 28px;
+    right: -12px;
+    width: 24px;
+    height: 24px;
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 101;
+    box-shadow: 0 2px 8px rgba(15, 118, 110, 0.15);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-toggle-btn:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 4px 12px rgba(15, 118, 110, 0.3);
+}
+
+.sidebar-toggle-btn i {
+    font-size: 12px;
+    color: var(--text-secondary);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-toggle-btn:hover i {
+    color: #FFFFFF;
+}
+
+/* ===== SIDEBAR LOGO - FIXED ===== */
+.sidebar-logo {
+    flex-shrink: 0 !important;
+}
+
+/* ===== SCROLLABLE NAV ===== */
+.sidebar-nav {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    padding: 16px 12px;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+}
+
+/* Modern thin scrollbar */
+.sidebar-nav::-webkit-scrollbar {
+    width: 5px;
+}
+
+.sidebar-nav::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb {
+    background: rgba(15, 118, 110, 0.2);
+    border-radius: 10px;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb:hover {
+    background: rgba(15, 118, 110, 0.4);
+}
+
+/* Firefox scrollbar */
+.sidebar-nav {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(15, 118, 110, 0.2) transparent;
+}
+
+/* ===== COLLAPSED STATE ===== */
+.sidebar.collapsed {
+    width: 70px;
+}
+
+.sidebar.collapsed .sidebar-toggle-btn i {
+    transform: rotate(180deg);
+}
+
+.sidebar.collapsed .sidebar-logo-text,
+.sidebar.collapsed .sidebar-section-label,
+.sidebar.collapsed .sidebar-item span,
+.sidebar.collapsed .sidebar-user-info {
+    opacity: 0;
+    visibility: hidden;
+    width: 0;
+    overflow: hidden;
+    transition: opacity 0.2s, visibility 0.2s, width 0.2s;
+}
+
+.sidebar.collapsed .sidebar-logo {
+    justify-content: center;
+    padding: 22px 10px;
+}
+
+.sidebar.collapsed .sidebar-item {
+    justify-content: center;
+    padding: 11px 10px;
+}
+
+.sidebar.collapsed .sidebar-user {
+    justify-content: center;
+    padding: 10px;
+}
+
+.sidebar.collapsed .sidebar-user .ms-auto {
+    display: none;
+}
+
+.sidebar.collapsed .sidebar-footer {
+    padding: 16px 10px;
+}
+
+/* ===== SIDEBAR FOOTER - FIXED ===== */
+.sidebar-footer {
+    flex-shrink: 0 !important;
+}
+
+/* ===== LOGOUT BUTTON ===== */
+.sidebar-logout-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 6px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar-logout-btn:hover {
+    color: var(--risk-critical);
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.sidebar-logout-btn i {
+    font-size: 16px;
+}
+
+/* ===== CONTENT AREA ADJUSTMENT ===== */
+.content-area {
+    margin-left: var(--sidebar-width);
+    width: calc(100% - var(--sidebar-width));
+    transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar.collapsed ~ .content-area {
+    margin-left: 70px;
+    width: calc(100% - 70px);
+}
+
+.topbar {
+    left: var(--sidebar-width);
+    width: calc(100% - var(--sidebar-width));
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar.collapsed ~ .content-area .topbar {
+    left: 70px;
+    width: calc(100% - 70px);
+}
+
+/* ===== TOOLTIP STYLING ===== */
+.tooltip {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.tooltip-inner {
+    background-color: rgba(31, 41, 55, 0.95);
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.tooltip.bs-tooltip-end .tooltip-arrow::before {
+    border-right-color: rgba(31, 41, 55, 0.95);
+}
+
+/* Hide tooltips when sidebar is expanded */
+.sidebar:not(.collapsed) .tooltip {
+    display: none !important;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 992px) {
+    .sidebar-toggle-btn {
+        display: none;
+    }
+    
+    .sidebar.collapsed {
+        width: var(--sidebar-width);
+    }
+    
+    .sidebar.collapsed .sidebar-logo-text,
+    .sidebar.collapsed .sidebar-section-label,
+    .sidebar.collapsed .sidebar-item span,
+    .sidebar.collapsed .sidebar-user-info {
+        opacity: 1;
+        visibility: visible;
+        width: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+        width: 260px;
+    }
+    
+    .sidebar.open {
+        transform: translateX(0);
+    }
+    
+    .sidebar.collapsed {
+        transform: translateX(-100%);
+        width: 260px;
+    }
+    
+    .sidebar.collapsed.open {
+        transform: translateX(0);
+    }
+    
+    .content-area {
+        margin-left: 0;
+        width: 100%;
+    }
+    
+    .topbar {
+        left: 0;
+        width: 100%;
+    }
+}
+
+/* ===== ANIMATION IMPROVEMENTS ===== */
+.sidebar-item,
+.sidebar-logo,
+.sidebar-user {
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-logo-text,
+.sidebar-section-label,
+.sidebar-item span,
+.sidebar-user-info {
+    transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
+                visibility 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
+                width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===== LOGO ICON CENTER IN COLLAPSED STATE ===== */
+.sidebar.collapsed .sidebar-logo-icon {
+    margin: 0 auto;
+}
+
+/* ===== PREVENT OVERFLOW ===== */
+.sidebar-item,
+.sidebar-logo,
+.sidebar-user {
+    white-space: nowrap;
+}
+
+/* ===== MINI SIDEBAR HOVER EFFECT ===== */
+.sidebar.collapsed .sidebar-item {
+    position: relative;
+}
+
+.sidebar.collapsed .sidebar-item:hover {
+    background: #D1FAE5;
+}
+
+.sidebar.collapsed .sidebar-item i {
+    margin: 0 auto;
+}

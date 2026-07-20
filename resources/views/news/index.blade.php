@@ -70,13 +70,13 @@
 </div>
 @else
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px;margin-bottom:var(--space-xl);">
-    @foreach($news as $article)
-    <a href="{{ $article->url }}" target="_blank"
+    @foreach($news as $item)
+    <a href="{{ $item['url'] }}" target="_blank"
        class="glass-card"
        style="padding:0;text-decoration:none;color:inherit;overflow:hidden;display:flex;flex-direction:column;">
 
-        @if($article->image)
-        <img src="{{ $article->image }}" alt=""
+        @if($item['image'])
+        <img src="{{ $item['image'] }}" alt=""
              style="width:100%;height:160px;object-fit:cover;"
              onerror="this.style.display='none'">
         @else
@@ -85,22 +85,26 @@
 
         <div style="padding:16px;flex:1;display:flex;flex-direction:column;">
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
-                <span class="sentiment-{{ strtolower($article->sentiment ?? 'neutral') }}" style="font-size:10px;padding:2px 8px;">
-                    {{ $article->sentiment_icon ?? '→' }} {{ $article->sentiment ?? 'Neutral' }}
+                @if($item['sentiment'])
+                <span class="sentiment-{{ strtolower($item['sentiment']) }}" style="font-size:10px;padding:2px 8px;">
+                    {{ $item['sentiment'] === 'Positive' ? '✅' : ($item['sentiment'] === 'Negative' ? '❌' : '→') }} {{ $item['sentiment'] }}
                 </span>
-                @if($article->source)
-                <span style="font-size:10px;color:var(--text-muted);">{{ $article->source }}</span>
                 @endif
-                <span style="font-size:10px;color:var(--text-muted);margin-left:auto;">{{ $article->published_at?->diffForHumans() }}</span>
+                @if($item['source'])
+                <span style="font-size:10px;color:var(--text-muted);">{{ $item['source'] }}</span>
+                @endif
+                <span style="font-size:10px;color:var(--text-muted);margin-left:auto;">
+                    {{ \Carbon\Carbon::parse($item['published_at'])->diffForHumans() }}
+                </span>
             </div>
 
             <div style="font-size:14px;font-weight:600;color:var(--text-primary);line-height:1.4;flex:1;">
-                {{ Str::limit($article->title, 90) }}
+                {{ Str::limit($item['title'], 90) }}
             </div>
 
-            @if($article->description)
+            @if($item['description'])
             <div style="font-size:12px;color:var(--text-muted);margin-top:8px;line-height:1.5;">
-                {{ Str::limit($article->description, 100) }}
+                {{ Str::limit($item['description'], 100) }}
             </div>
             @endif
         </div>

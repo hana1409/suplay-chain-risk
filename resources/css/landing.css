@@ -70,26 +70,6 @@ body{
     color:var(--primary);
 
 }
-
-.btn-login{
-
-    background:var(--primary);
-
-    color:white;
-
-    padding:10px 26px;
-
-    border-radius:12px;
-
-}
-
-.btn-login:hover{
-
-    background:var(--primary-dark);
-
-    color:white;
-
-}
 /* ======================
         HERO
 ====================== */

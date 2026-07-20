@@ -10,7 +10,7 @@
 
         <div class="login-header">
 
-            <img src="{{ asset('images/logo.png') }}" class="login-logo">
+            <img src="{{ asset('images/hand.png') }}" class="login-logo">
 
             <h2>Create Account</h2>
 

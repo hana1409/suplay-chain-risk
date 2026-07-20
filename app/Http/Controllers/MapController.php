@@ -224,6 +224,8 @@ class MapController extends Controller
             'temperature'     => $weather?->temperature !== null ? $weather->temperature . '°C' : 'N/A',
             'wind_speed'      => $weather?->wind_speed   !== null ? $weather->wind_speed . ' km/h' : 'N/A',
             'rainfall'        => $weather ? round(max($weather->rainfall ?? 0, $weather->rain ?? 0), 1) . ' mm' : 'N/A',
+            'humidity'        => $weather?->humidity !== null ? $weather->humidity . '%' : 'N/A',
+            'pressure'        => $weather?->pressure !== null ? $weather->pressure . ' hPa' : 'N/A',
             'is_watched'      => $isWatched,
             'detail_url'      => route('countries.show', $country->country_code),
             'compare_url'     => route('compare') . '?a=' . $country->country_code,

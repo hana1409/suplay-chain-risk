@@ -6,6 +6,7 @@
 @import './landing.css';
 @import './login.css';
 @import './dashboard.css';
+@import './sidebar-enhanced.css';
 
 /* ===== RESET & BASE ===== */
 *, *::before, *::after {
@@ -479,3 +480,80 @@ body {
 .intel-toast.success { border-left: 3px solid var(--risk-low); }
 .intel-toast.error   { border-left: 3px solid var(--risk-critical); }
 .intel-toast.info    { border-left: 3px solid var(--accent); }
+
+/* ===== PAGINATION FIX ===== */
+/* Remove any unwanted icons or pseudo-elements from pagination links */
+.pagination .page-link::before,
+.pagination .page-link::after,
+nav[role="navigation"] a::before,
+nav[role="navigation"] a::after,
+nav[aria-label="Pagination Navigation"] a::before,
+nav[aria-label="Pagination Navigation"] a::after {
+    content: none !important;
+    display: none !important;
+}
+
+.pagination .page-link,
+nav[role="navigation"] a,
+nav[aria-label="Pagination Navigation"] a {
+    background-image: none !important;
+    max-width: 60px !important;
+    max-height: 40px !important;
+    overflow: hidden !important;
+}
+
+/* Prevent any SVG or icon from being too large */
+.pagination .page-link svg,
+.pagination .page-link i,
+nav[role="navigation"] svg,
+nav[role="navigation"] i {
+    max-width: 16px !important;
+    max-height: 16px !important;
+    font-size: 16px !important;
+}
+
+/* Laravel Pagination Styling */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin: 20px 0;
+}
+
+.pagination .page-item {
+    list-style: none;
+}
+
+.pagination .page-link {
+    padding: 8px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    text-decoration: none;
+    background: #FFFFFF;
+    font-size: 14px;
+    font-weight: 500;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 38px;
+}
+
+.pagination .page-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-subtle);
+}
+
+.pagination .page-item.active .page-link {
+    background: linear-gradient(135deg, #0F766E, #065F46);
+    border-color: var(--accent);
+    color: white;
+}
+
+.pagination .page-item.disabled .page-link {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}

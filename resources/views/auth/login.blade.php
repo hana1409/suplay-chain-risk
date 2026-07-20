@@ -10,7 +10,7 @@
 
         <div class="login-header">
 
-            <img src="{{ asset('images/logo.png') }}" class="login-logo">
+            <img src="{{ asset('images/hand.png') }}" class="login-logo">
 
             <h2>Welcome Back!</h2>
 
@@ -86,22 +86,6 @@
             </button>
 
         </form>
-
-        <div class="divider">
-
-            Or continue with
-
-        </div>
-
-        <div class="social-login justify-content-center">
-
-            <a href="#" class="btn btn-light rounded-circle p-3">
-
-                <i class="bi bi-google fs-4 text-danger"></i>
-
-            </a>
-
-        </div>
 
         <div class="register-link">
 

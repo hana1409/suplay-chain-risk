@@ -43,6 +43,17 @@
             <span>Articles</span>
         </a>
 
+        <a href="{{ route('admin.contacts') }}" class="admin-nav-item {{ request()->routeIs('admin.contacts*') ? 'active' : '' }}">
+            <i class="bi bi-envelope-fill"></i>
+            <span>Contact Messages</span>
+            @php
+                $unreadCount = \App\Models\Contact::unread()->count();
+            @endphp
+            @if($unreadCount > 0)
+            <span class="badge rounded-pill" style="background:#EF4444;color:white;font-size:10px;margin-left:auto;">{{ $unreadCount }}</span>
+            @endif
+        </a>
+
         <div class="admin-nav-label">Intelligence</div>
 
         <a href="{{ route('admin.news-cache') }}" class="admin-nav-item {{ request()->routeIs('admin.news-cache*') ? 'active' : '' }}">

@@ -25,6 +25,28 @@
     <!-- Vite Assets -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+    <!-- Pagination Icon Fix -->
+    <style>
+        /* Prevent large arrow icons in pagination */
+        .pagination .page-link::before,
+        .pagination .page-link::after {
+            content: none !important;
+            display: none !important;
+        }
+        .pagination .page-link {
+            background-image: none !important;
+            max-width: 60px !important;
+            max-height: 40px !important;
+            overflow: hidden !important;
+        }
+        .pagination .page-link svg,
+        .pagination .page-link i {
+            max-width: 16px !important;
+            max-height: 16px !important;
+            font-size: 16px !important;
+        }
+    </style>
+
     @stack('styles')
 </head>
 <body>
@@ -127,6 +149,78 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleBtn.addEventListener('click', () => sidebar.classList.toggle('open'));
     }
 });
+
+// ============================================================
+//  PROFESSIONAL SIDEBAR COLLAPSE/EXPAND
+// ============================================================
+
+document.addEventListener('DOMContentLoaded', () => {
+    const sidebar = document.getElementById('sidebar');
+    const collapseBtn = document.getElementById('sidebarCollapseBtn');
+    const STORAGE_KEY = 'sidebar_collapsed';
+    
+    // Restore sidebar state from localStorage
+    const isCollapsed = localStorage.getItem(STORAGE_KEY) === 'true';
+    if (isCollapsed) {
+        sidebar.classList.add('collapsed');
+    }
+    
+    // Initialize Bootstrap tooltips (only for collapsed state)
+    let tooltipList = [];
+    
+    function initTooltips() {
+        // Destroy existing tooltips
+        tooltipList.forEach(tooltip => tooltip.dispose());
+        tooltipList = [];
+        
+        // Only init tooltips if sidebar is collapsed
+        if (sidebar.classList.contains('collapsed')) {
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            tooltipList = tooltipTriggerList.map(tooltipTriggerEl => {
+                return new bootstrap.Tooltip(tooltipTriggerEl, {
+                    trigger: 'hover',
+                    container: 'body',
+                    boundary: 'window'
+                });
+            });
+        }
+    }
+    
+    // Initialize tooltips based on initial state
+    initTooltips();
+    
+    // Toggle sidebar collapse
+    if (collapseBtn) {
+        collapseBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('collapsed');
+            
+            // Save state to localStorage
+            const collapsed = sidebar.classList.contains('collapsed');
+            localStorage.setItem(STORAGE_KEY, collapsed);
+            
+            // Reinitialize tooltips
+            setTimeout(() => {
+                initTooltips();
+            }, 300); // Wait for transition to complete
+        });
+    }
+    
+    // Handle window resize
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            // Dispose tooltips on small screens
+            if (window.innerWidth <= 992) {
+                tooltipList.forEach(tooltip => tooltip.dispose());
+                tooltipList = [];
+            } else {
+                initTooltips();
+            }
+        }, 250);
+    });
+});
+
 </script>
 
 @stack('scripts')

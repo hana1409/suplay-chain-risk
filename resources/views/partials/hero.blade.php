@@ -7,27 +7,23 @@
             <div class="col-lg-10">
                 <div class="hero-content d-flex flex-column align-items-center">
                     
-                    <span class="hero-tag mb-4 fade-up-badge">
-                         Global Supply Chain Platform
-                    </span>
-                    
                     <!-- Fixed height prevents layout shift during typing -->
-                    <h1 class="hero-title mb-4" style="color: #1F2937; font-size: 64px; font-weight: 800; line-height: 1.2; letter-spacing: -1px; min-height: 154px; display: flex; justify-content: center; align-items: center; flex-wrap: wrap;">
+                    <h1 class="hero-title mb-4" style="color: #1F2937; font-size: 64px; font-weight: 800; line-height: 1.2; letter-spacing: -1px; min-height: 154px; display: flex; justify-content: center; align-items: center; flex-wrap: wrap; margin-top: 2rem;">
                         <span>
                             <span id="typewriter-text"></span><span class="cursor">|</span>
                         </span>
                     </h1>
                     
                     <div id="hero-post-typing" style="opacity: 0; transform: translateY(20px);">
-                        <p class="mb-5 mx-auto" style="color: #6B7280; font-size: 20px; line-height: 1.8; max-width: 700px;">
+                        <p class="mb-5 mx-auto" style="color: #6B7280; font-size: 20px; line-height: 1.8; max-width: 700px; margin-top: 1.5rem;">
                             Monitor weather, logistics, exchange rates, <br>
                             economy, ports, and geopolitical risks <br>
                             from one intelligent dashboard.
                         </p>
                         
                         <div class="hero-buttons d-flex justify-content-center gap-4">
-                            <a href="#" class="btn btn-primary-custom btn-hover-anim px-5 py-3 rounded-pill" style="font-size: 16px;">Explore Dashboard</a>
-                            <a href="#" class="btn btn-outline-custom btn-hover-anim px-5 py-3 rounded-pill" style="font-size: 16px;">Learn More</a>
+                            <a href="{{ route('login') }}" class="btn btn-primary-custom btn-hover-anim px-5 py-3 rounded-pill" style="font-size: 16px;">Login</a>
+                            <a href="{{ route('landing.features') }}" class="btn btn-outline-custom btn-hover-anim px-5 py-3 rounded-pill" style="font-size: 16px;">Explore Dashboard</a>
                         </div>
                     </div>
 
@@ -40,18 +36,6 @@
 <style>
 /* Reset hero default to fix layout */
 .hero { min-height: auto; }
-
-/* Badge Animation */
-.fade-up-badge {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeUp 1s ease-out forwards;
-}
-
-@keyframes fadeUp {
-    0% { opacity: 0; transform: translateY(20px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
 
 /* Typewriter Cursor */
 .cursor {
